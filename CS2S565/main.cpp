@@ -25,13 +25,12 @@ void mouseButtonDown(int button_id, int state, int x, int y);
 void mouseMove(int x, int y);
 void keyDown(unsigned char key, int x, int y);
 
+////////////////////////////////////////
 // Globals
-
+////////////////////////////////////////
 float snowmanX = 0.0f;
 float snowmanY = 0.0f;
 float snowmanOrientation = 0.0f;
-
-
 //
 // Demo model
 //
@@ -40,23 +39,24 @@ float theta1 = 0.1f;
 float theta2 = 0.0f;
 float theta1b = glm::radians(45.0f);
 
-const float quadLength = 0.4f;
+//TEXTURES
+GLuint backGroundTexture1;
+GLuint backGroundTexture2;
 
-GLuint rustTexture;
-
-// Variable we'll use to animate (rotate) our star object
-float theta = 0.0f;
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
 bool mDown = false;
 glm::mat4 model_view= glm::mat4(1);
-GLuint myTexture;
+
 
 // Shader program object
 GLuint myShaderProgram;
 GLuint locT; // Location of "T" uniform variable
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MAIN FUNCTIONS
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char* argv[]) {
 
@@ -125,10 +125,11 @@ void init(int argc, char* argv[]) {
 
 	// Setup objects using Vertex Buffer Objects (VBOs)
 	
-	//Textures
-	myTexture =
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\bumblebee.png");
-	rustTexture = wicLoadTexture(wstring(L"Resources\\Textures\\rust1.jpg"));
+	//Texture loading
+	backGroundTexture1 =
+		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png");
+	backGroundTexture2 = 
+		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background2.jpg");
 }
 
 
@@ -139,11 +140,22 @@ void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//draw scene background
+	drawBackGround();
 
 	//call our function to render our shape hierarchy
 
 	//instructs the rendering that you are done with the current frame and buffers should be swapped to work on the next one.
 	glutSwapBuffers();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// SCENE FUNCTIONS
+////////////////////////////////////////////////////////////////////////////////
+
+
+void drawBackGround(void)
+{
+
 }
 
 
