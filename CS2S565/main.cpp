@@ -133,10 +133,10 @@ void init(int argc, char* argv[])
 		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png");
 
 	backGroundTexture2 =
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background2.png");
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background2.png");
 
 	backGroundTexture3 =
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background3.png");
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background3.png");
 
 }
 
@@ -178,8 +178,28 @@ void drawBackGround(void)
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, backGroundTexture2);
+	
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glBindTexture(GL_TEXTURE_2D, backGroundTexture2);
+	glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_TRIANGLE_STRIP);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex2f(-1.0f, -1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex2f(-1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex2f(1.0f, -1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex2f(1.0f, 1.0f);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, backGroundTexture3);
 	glEnable(GL_TEXTURE_2D);
 
 	glBegin(GL_TRIANGLE_STRIP);
