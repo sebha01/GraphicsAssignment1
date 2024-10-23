@@ -3,6 +3,7 @@
 #include <glew\glew.h>
 #include <freeglut\freeglut.h>
 #include <iostream>
+#include <vector>
 
 #include "texture_loader.h"
 #include "shader_setup.h"
@@ -40,8 +41,7 @@ float theta2 = 0.0f;
 float theta1b = glm::radians(45.0f);
 
 //TEXTURES
-GLuint backGroundTexture1;
-GLuint backGroundTexture2;
+GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
 //Store vertex arrays of objects 
 GLuint backGround1VBO, backGround1TexVBO;
@@ -131,8 +131,13 @@ void init(int argc, char* argv[])
 	//Texture loading
 	backGroundTexture1 =
 		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png");
-	backGroundTexture2 = 
+
+	backGroundTexture2 =
 		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background2.png");
+
+	backGroundTexture3 =
+		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background3.png");
+
 }
 
 
@@ -156,24 +161,38 @@ void display(void)
 ////////////////////////////////////////////////////////////////////////////////
 void drawBackGround(void)
 {
+	// Enable blending for transparency
+
 	glBindTexture(GL_TEXTURE_2D, backGroundTexture1);
 	glEnable(GL_TEXTURE_2D);
-	glBegin(GL_TRIANGLE_STRIP);
 
+	glBegin(GL_TRIANGLE_STRIP);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex2f(-1.0f, -1.0f);
-
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex2f(-1.0f, 1.0f);
-
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex2f(1.0f, -1.0f);
-
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex2f(1.0f, 1.0f);
-	
-
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, backGroundTexture2);
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_TRIANGLE_STRIP);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex2f(-1.0f, -1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex2f(-1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex2f(1.0f, -1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex2f(1.0f, 1.0f);
+	glEnd();
+
 	glDisable(GL_TEXTURE_2D);
 }
 
