@@ -20,6 +20,8 @@ void display(void);
 
 //Background function prototype
 void drawBackGround(void);
+//Cloud function prototype
+void drawCloud(void);
 
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
@@ -40,12 +42,12 @@ float theta1 = 0.1f;
 float theta2 = 0.0f;
 float theta1b = glm::radians(45.0f);
 
-//TEXTURES
+//background variables
 vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
-//Store vertex arrays of objects 
-GLuint backGround1VBO, backGround1TexVBO;
+//Cloud variables
+GLuint cloud1;
 
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -130,6 +132,7 @@ void init(int argc, char* argv[])
 	// Setup objects using Vertex Buffer Objects (VBOs)
 	
 	//Texture loading
+	//background
 	backGroundTextures.push_back(backGroundTexture1 =
 		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png"));
 
@@ -139,6 +142,9 @@ void init(int argc, char* argv[])
 	backGroundTextures.push_back(backGroundTexture3 =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background3.png"));
 
+	//clouds
+	cloud1 = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud1.png");
 }
 
 
@@ -150,6 +156,7 @@ void display(void)
 
 	//draw scene background
 	drawBackGround();
+	drawCloud();
 
 	//call our function to render our shape hierarchy
 
@@ -181,6 +188,29 @@ void drawBackGround(void)
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	}
+}
+
+// New function to draw the triangle with the cloud texture
+void drawCloud() 
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glBindTexture(GL_TEXTURE_2D, cloud1);
+	glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_TRIANGLES);
+
+	glTexCoord2f(0.5f, 0.5f); glVertex2f(0.8f, 0.8f); 
+	glTexCoord2f(1.0f, 0.5f); glVertex2f(1.0f, 0.8f);
+	glTexCoord2f(0.5f, 1.0f); glVertex2f(0.8f, 1.0f);  
+
+	glEnd();
+	
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 }
 
 
