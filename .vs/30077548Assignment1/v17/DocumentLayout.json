@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_vertex_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Shaders\\basic_vertex_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Snowman.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Snowman.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -30,11 +34,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "basic_vertex_shader.txt",
+              "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_vertex_shader.txt",
+              "RelativeDocumentMoniker": "CS2S565\\Shaders\\basic_vertex_shader.txt",
+              "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_vertex_shader.txt",
+              "RelativeToolTip": "CS2S565\\Shaders\\basic_vertex_shader.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-10-23T16:39:00.739Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Circle.h",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Circle.h",
               "RelativeDocumentMoniker": "CS2S565\\Circle.h",
@@ -46,7 +63,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Circle.cpp",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Circle.cpp",
               "RelativeDocumentMoniker": "CS2S565\\Circle.cpp",
@@ -58,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Snowman.h",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Snowman.h",
               "RelativeDocumentMoniker": "CS2S565\\Snowman.h",
@@ -70,7 +87,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Snowman.cpp",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Snowman.cpp",
               "RelativeDocumentMoniker": "CS2S565\\Snowman.cpp",
@@ -88,7 +105,7 @@
               "RelativeDocumentMoniker": "CS2S565\\main.cpp",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\main.cpp",
               "RelativeToolTip": "CS2S565\\main.cpp",
-              "ViewState": "AQIAAKkAAAAAAAAAAAAAANoAAAACAAAA",
+              "ViewState": "AQIAAHYAAAAAAAAAAAAAAKwAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-23T14:52:50.409Z",
               "EditorCaption": ""

@@ -43,6 +43,9 @@ float theta1b = glm::radians(45.0f);
 GLuint backGroundTexture1;
 GLuint backGroundTexture2;
 
+//Store vertex arrays of objects 
+GLuint backGround1VBO, backGround1TexVBO;
+
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
@@ -129,7 +132,7 @@ void init(int argc, char* argv[])
 	backGroundTexture1 =
 		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png");
 	backGroundTexture2 = 
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background2.jpg");
+		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background2.png");
 }
 
 
@@ -151,11 +154,28 @@ void display(void)
 ////////////////////////////////////////////////////////////////////////////////
 // SCENE FUNCTIONS
 ////////////////////////////////////////////////////////////////////////////////
-
-
 void drawBackGround(void)
 {
+	glBindTexture(GL_TEXTURE_2D, backGroundTexture1);
+	glEnable(GL_TEXTURE_2D);
+	glBegin(GL_TRIANGLE_STRIP);
 
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex2f(0.0f, 0.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex2f(0.0f, 1.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex2f(1.0f, 0.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex2f(1.0f, 1.0f);
+
+	
+
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
 
