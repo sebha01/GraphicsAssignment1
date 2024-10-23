@@ -16,7 +16,6 @@ using namespace std;
 // Main function prototypes
 void init(int argc, char* argv[]);
 void display(void);
-void drawTriangle(void);
 
 //Background function prototype
 void drawBackGround(void);
