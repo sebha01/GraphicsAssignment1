@@ -58,8 +58,8 @@ GLuint locT; // Location of "T" uniform variable
 // MAIN FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int main(int argc, char* argv[]) {
-
+int main(int argc, char* argv[]) 
+{
 	init(argc, argv);
 
 	glutMainLoop();
@@ -68,8 +68,8 @@ int main(int argc, char* argv[]) {
 }
 
 
-void init(int argc, char* argv[]) {
-
+void init(int argc, char* argv[]) 
+{
 	// 1. Initialise FreeGLUT
 	glutInit(&argc, argv);
 
@@ -134,8 +134,8 @@ void init(int argc, char* argv[]) {
 
 
 
-void display(void) {
-
+void display(void) 
+{
 	//clear the buffers to the following preset values
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -165,47 +165,45 @@ void drawBackGround(void)
 
 #pragma region Event handling functions
 
-void mouseButtonDown(int button_id, int state, int x, int y) {
-
-	if (button_id == GLUT_LEFT_BUTTON) {
-
-		if (state == GLUT_DOWN) {
-
+void mouseButtonDown(int button_id, int state, int x, int y) 
+{
+	if (button_id == GLUT_LEFT_BUTTON) 
+	{
+		if (state == GLUT_DOWN) 
+		{
 			mouse_x = x;
 			mouse_y = y;
 
 			mDown = true;
-
 		}
-		else if (state == GLUT_UP) {
-
+		else if (state == GLUT_UP) 
+		{
 			mDown = false;
 		}
 	}
 }
-void mouseMove(int x, int y) {
 
-	if (mDown) {
-
+void mouseMove(int x, int y) 
+{
+	if (mDown) 
+	{
 		int dx = x - mouse_x;
 		int dy = y - mouse_y;
 
 		// Ctrl click to rotate, click on its own to move...
-		if (glutGetModifiers() == GLUT_ACTIVE_CTRL) {
-			
-			
+		if (glutGetModifiers() == GLUT_ACTIVE_CTRL) 
+		{
 			theta1 += float(dy) * 0.01;
 			theta1b += float(dy) * 0.01;
 			theta2 += float(dy) * 0.01;
 
 			snowmanOrientation += float(dy);
 		}
-		else {
-
+		else 
+		{
 			snowmanX += float(dx) * 0.0025f;
 			snowmanY -= float(dy) * 0.0025f;
 		}
-
 
 		mouse_x = x;
 		mouse_y = y;
@@ -215,10 +213,10 @@ void mouseMove(int x, int y) {
 }
 
 
-void keyDown(unsigned char key, int x, int y) {
-
-	if (key == 'r') {
-
+void keyDown(unsigned char key, int x, int y) 
+{
+	if (key == 'r') 
+	{
 		snowmanX = 0.0f;
 		snowmanY = 0.0f;
 		snowmanOrientation = 0.0f;
