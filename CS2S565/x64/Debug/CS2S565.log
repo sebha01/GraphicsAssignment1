@@ -1,0 +1,20 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (CS2S565.vcxproj, week06.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Circle.cpp
+  main.cpp
+  shader_setup.cpp
+  Snowman.cpp
+  texture_loader.cpp
+  Generating Code...
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\30077548Assignment1\CS2S565\circle.h(4,10): error C1083: Cannot open include file: 'glew\glew.h': No such file or directory
+  (compiling source file 'Circle.cpp')
+  
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\30077548Assignment1\CS2S565\main.cpp(1,10): error C1083: Cannot open include file: 'FreeImage\FreeImagePlus.h': No such file or directory
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\30077548Assignment1\CS2S565\shader_setup.h(8,10): error C1083: Cannot open include file: 'glew\glew.h': No such file or directory
+  (compiling source file 'shader_setup.cpp')
+  
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\30077548Assignment1\CS2S565\Snowman.h(4,10): error C1083: Cannot open include file: 'glew\glew.h': No such file or directory
+  (compiling source file 'Snowman.cpp')
+  
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\30077548Assignment1\CS2S565\texture_loader.h(7,10): error C1083: Cannot open include file: 'glew\glew.h': No such file or directory
+  (compiling source file 'texture_loader.cpp')
+  
