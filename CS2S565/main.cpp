@@ -160,18 +160,17 @@ void drawBackGround(void)
 	glEnable(GL_TEXTURE_2D);
 	glBegin(GL_TRIANGLE_STRIP);
 
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(0.0f, 0.0f);
-
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(0.0f, 1.0f);
+	glVertex2f(-1.0f, -1.0f);
 
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(1.0f, 0.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex2f(-1.0f, 1.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(1.0f, 1.0f);
+	glVertex2f(1.0f, -1.0f);
 
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex2f(1.0f, 1.0f);
 	
 
 	glEnd();
