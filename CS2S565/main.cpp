@@ -41,6 +41,7 @@ float theta2 = 0.0f;
 float theta1b = glm::radians(45.0f);
 
 //TEXTURES
+vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
 //Store vertex arrays of objects 
@@ -129,14 +130,14 @@ void init(int argc, char* argv[])
 	// Setup objects using Vertex Buffer Objects (VBOs)
 	
 	//Texture loading
-	backGroundTexture1 =
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png");
+	backGroundTextures.push_back(backGroundTexture1 =
+		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png"));
 
-	backGroundTexture2 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background2.png");
+	backGroundTextures.push_back(backGroundTexture2 =
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background2.png"));
 
-	backGroundTexture3 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background3.png");
+	backGroundTextures.push_back(backGroundTexture3 =
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background3.png"));
 
 }
 
@@ -162,58 +163,24 @@ void display(void)
 void drawBackGround(void)
 {
 	// Enable blending for transparency
-
-	glBindTexture(GL_TEXTURE_2D, backGroundTexture1);
-	glEnable(GL_TEXTURE_2D);
-
-	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(-1.0f, -1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(-1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(1.0f, -1.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(1.0f, 1.0f);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-
-	
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glBindTexture(GL_TEXTURE_2D, backGroundTexture2);
-	glEnable(GL_TEXTURE_2D);
+	for (int i = 0; i < backGroundTextures.size(); i++)
+	{
+		glBindTexture(GL_TEXTURE_2D, backGroundTextures[i]);
+		glEnable(GL_TEXTURE_2D);
 
-	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(-1.0f, -1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(-1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(1.0f, -1.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(1.0f, 1.0f);
-	glEnd();
+		glBegin(GL_TRIANGLE_STRIP);
 
-	glDisable(GL_TEXTURE_2D);
+		glTexCoord2f(0.0f, 1.0f); glVertex2f(-1.0f, -1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex2f(-1.0f, 1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex2f(1.0f, -1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex2f(1.0f, 1.0f);
 
-	glBindTexture(GL_TEXTURE_2D, backGroundTexture3);
-	glEnable(GL_TEXTURE_2D);
-
-	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(-1.0f, -1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(-1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(1.0f, -1.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(1.0f, 1.0f);
-	glEnd();
-
-	glDisable(GL_TEXTURE_2D);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+	}
 }
 
 
