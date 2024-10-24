@@ -21,7 +21,7 @@ void display(void);
 //Background function prototype
 void drawBackGround(void);
 //Cloud function prototype
-void drawCloud(void);
+void drawClouds(void);
 
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
@@ -47,7 +47,7 @@ vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
 //Cloud variables
-GLuint cloud1, cloud2;
+GLuint cloud1, cloud2, cloud3, cloud4, cloud5, cloud6;
 
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -147,6 +147,14 @@ void init(int argc, char* argv[])
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud1.png");
 	cloud2 = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png");
+	cloud3 = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud3.png");
+	cloud4 = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud4.png");
+	cloud5 = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud5.png");
+	cloud6 = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png");
 }
 
 
@@ -158,7 +166,7 @@ void display(void)
 
 	//draw scene background
 	drawBackGround();
-	drawCloud();
+	drawClouds();
 
 	//call our function to render our shape hierarchy
 
@@ -193,7 +201,7 @@ void drawBackGround(void)
 }
 
 // New function to draw the triangle with the cloud texture
-void drawCloud() 
+void drawClouds() 
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -215,6 +223,42 @@ void drawCloud()
 	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.9f, 0.7f);  // Bottom-right corner of quad
 	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.9f, 0.9f);  // Top-right corner of quad
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.5f, 0.9f);  // Top-left corner of quad
+	glEnd();
+
+	//Cloud 3
+	glBindTexture(GL_TEXTURE_2D, cloud3); 
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.5f, 0.1f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.9f, 0.1f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.9f, 0.3f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.5f, 0.3f);  // Top-left corner of quad
+	glEnd();
+	
+	//Cloud 4
+	glBindTexture(GL_TEXTURE_2D, cloud4); 
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(0.1f, 0.8f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.4f, 0.8f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.4f, 1.0f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.1f, 1.0f);  // Top-left corner of quad
+	glEnd();
+	
+	//Cloud 5
+	glBindTexture(GL_TEXTURE_2D, cloud5); 
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.1f, 0.5f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.5f, 0.5f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.5f, 0.7f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.1f, 0.7f);  // Top-left corner of quad
+	glEnd();
+	
+	//Cloud 6
+	glBindTexture(GL_TEXTURE_2D, cloud6); 
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(0.3f, 0.2f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.8f, 0.2f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.8f, 0.4f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.3f, 0.4f);  // Top-left corner of quad
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
