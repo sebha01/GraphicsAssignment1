@@ -23,6 +23,8 @@ void drawBackGround(void);
 //Cloud function prototype
 void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2);
 void drawClouds(void);
+//Functions for the sun
+void setUpSunVBO(void);
 
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
@@ -56,8 +58,8 @@ struct Cloud
 vector<Cloud> Clouds;
 
 //Sun variables 
-GLuint sunVBO;
-
+GLuint sunTexture;
+GLuint sunPosVBO;
 float sunVertices[] = 
 {
 	// Positions
@@ -151,8 +153,6 @@ void init(int argc, char* argv[])
 	myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
 	locT = glGetUniformLocation(myShaderProgram, "T");
 
-	// Setup objects using Vertex Buffer Objects (VBOs)
-
 	//Texture loading
 	//background
 	backGroundTextures.push_back(backGroundTexture1 =
@@ -195,6 +195,13 @@ void init(int argc, char* argv[])
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
 		0.6f, 0.9f, 0.3f, 0.5f
 	});
+
+	//Sun
+	sunTexture = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
+
+	// Setup objects using Vertex Buffer Objects (VBOs)
+	setUpSunVBO();
 }
 
 
@@ -268,6 +275,13 @@ void drawClouds()
 	}
 }
 
+void setUpSunVBO(void)
+{
+	// setup VBO for the star object position data
+	glGenBuffers(1, &sunPosVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, sunPosVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sunVertices), sunVertices, GL_STATIC_DRAW);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLING FUNCTIONS
