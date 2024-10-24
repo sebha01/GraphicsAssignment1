@@ -53,8 +53,6 @@ struct Cloud
 	GLuint texture;
 	float x1, x2, y1, y2;
 };
-
-GLuint cloud1, cloud2, cloud3, cloud4, cloud5, cloud6;
 vector<Cloud> Clouds;
 
 
@@ -153,32 +151,32 @@ void init(int argc, char* argv[])
 	//clouds
 	Clouds.push_back
 	({
-		cloud1 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud8.png"),
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud8.png"),
 		0.0f, 0.3f, 0.4f, 0.6f
 	});
 	Clouds.push_back
 	({
-		cloud2 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png"),
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png"),
 		0.5f, 0.9f, 0.7f, 0.9f
 	});
 	Clouds.push_back
 	({
-		cloud3 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud7.png"),
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud7.png"),
 		-0.4f, -0.8f, 0.3f, 0.5f
 	});
 	Clouds.push_back
 	({
-		cloud4 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud4.png"),
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud4.png"),
 		-0.1f, 0.4f, 0.7f, 1.0f
 	});
 	Clouds.push_back
 	({
-		cloud5 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud5.png"),
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud5.png"),
 		-0.1f, -0.4f, 0.5f, 0.7f
 	});
 	Clouds.push_back
 	({
-		cloud6 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
 		0.6f, 0.9f, 0.3f, 0.5f
 	});
 }
