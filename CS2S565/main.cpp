@@ -55,6 +55,22 @@ struct Cloud
 };
 vector<Cloud> Clouds;
 
+//Sun variables 
+GLuint sunVBO;
+
+float sunVertices[] = 
+{
+	// Positions
+	-0.9f,  0.8f,  //Upper left
+	-0.8f,  0.9f,    //Top left
+	-0.7f,  0.9f, //Top right
+	-0.6f,  0.8f,  //Upper right
+	-0.6f,  0.7f,  //Lower right
+	-0.7f,  0.6f,  //Bottom right
+	-0.8f,  0.6f,    //Bottom left
+	-0.9f,  0.7f,    //Lower Right
+};
+
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
