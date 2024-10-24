@@ -68,7 +68,7 @@ float sunVertices[] =
 	-0.6f,  0.7f,  //Lower right
 	-0.7f,  0.6f,  //Bottom right
 	-0.8f,  0.6f,    //Bottom left
-	-0.9f,  0.7f,    //Lower Right
+	-0.9f,  0.7f,    //Lower Left
 };
 
 
