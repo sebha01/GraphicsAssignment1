@@ -148,7 +148,7 @@ void init(int argc, char* argv[])
 	cloud2 = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png");
 	cloud3 = 
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud3.png");
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud7.png");
 	cloud4 = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud4.png");
 	cloud5 = 
@@ -228,10 +228,10 @@ void drawClouds()
 	//Cloud 3
 	glBindTexture(GL_TEXTURE_2D, cloud3); 
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.5f, 0.1f);  // Bottom-left corner of quad
-	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.9f, 0.1f);  // Bottom-right corner of quad
-	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.9f, 0.3f);  // Top-right corner of quad
-	glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.5f, 0.3f);  // Top-left corner of quad
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.4f, 0.3f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.8f, 0.3f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.8f, 0.5f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.4f, 0.5f);  // Top-left corner of quad
 	glEnd();
 	
 	//Cloud 4
