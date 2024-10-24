@@ -255,10 +255,10 @@ void drawClouds()
 	//Cloud 6
 	glBindTexture(GL_TEXTURE_2D, cloud6); 
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2f(0.3f, 0.2f);  // Bottom-left corner of quad
-	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.8f, 0.2f);  // Bottom-right corner of quad
-	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.8f, 0.4f);  // Top-right corner of quad
-	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.3f, 0.4f);  // Top-left corner of quad
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(0.6f, 0.3f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.9f, 0.3f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.9f, 0.5f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.6f, 0.5f);  // Top-left corner of quad
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
