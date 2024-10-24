@@ -47,7 +47,7 @@ vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
 //Cloud variables
-GLuint cloud1;
+GLuint cloud1, cloud2;
 
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -145,6 +145,8 @@ void init(int argc, char* argv[])
 	//clouds
 	cloud1 = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud1.png");
+	cloud2 = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png");
 }
 
 
@@ -196,14 +198,16 @@ void drawCloud()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glBindTexture(GL_TEXTURE_2D, cloud1);
+	glBindTexture(GL_TEXTURE_2D, cloud2);
 	glEnable(GL_TEXTURE_2D);
 
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_QUADS);
 
-	glTexCoord2f(0.5f, 0.5f); glVertex2f(0.8f, 0.8f); 
-	glTexCoord2f(1.0f, 0.5f); glVertex2f(1.0f, 0.8f);
-	glTexCoord2f(0.5f, 1.0f); glVertex2f(0.8f, 1.0f);  
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(0.5f, 0.7f);  // Bottom-left corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.9f, 0.7f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.9f, 0.9f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.5f, 0.9f);  // Top-left corner of quad
+
 
 	glEnd();
 	
