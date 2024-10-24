@@ -65,42 +65,7 @@ vector<Cloud> Clouds;
 /////////////////////////
 //Sun variables 
 ///////////////////////
-GLuint sunTexture;
 
-GLuint sunPosVBO;        // VBO for position data
-GLuint sunTexCoordVBO;   // VBO for texture coordinate data
-GLuint sunIndicesVBO;    // VBO for index data
-
-float sunVertices[] = 
-{
-	// Positions
-	-0.9f,  0.8f,  //Upper left
-	-0.8f,  0.9f,    //Top left
-	-0.7f,  0.9f, //Top right
-	-0.6f,  0.8f,  //Upper right
-	-0.6f,  0.7f,  //Lower right
-	-0.7f,  0.6f,  //Bottom right
-	-0.8f,  0.6f,    //Bottom left
-	-0.9f,  0.7f,    //Lower Left
-};
-// Texture Coordinates for each vertex (adjust these based on your texture)
-float sunTextureCoords[] = {
-	0.0f, 1.0f,  // Upper left
-	0.5f, 1.0f,  // Top left
-	1.0f, 1.0f,  // Top right
-	1.0f, 0.5f,  // Upper right
-	1.0f, 0.0f,  // Lower right
-	0.5f, 0.0f,  // Bottom right
-	0.0f, 0.0f,  // Bottom left
-	0.0f, 0.5f   // Lower left
-};
-// Indices for the sun shape
-unsigned int sunIndices[] = {
-	0, 1, 2,  // First triangle
-	2, 3, 4,  // Second triangle
-	4, 5, 6,  // Third triangle
-	6, 7, 0   // Fourth triangle (closing)
-};
 
 ///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -182,6 +147,9 @@ void init(int argc, char* argv[])
 	myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
 	locT = glGetUniformLocation(myShaderProgram, "T");
 
+	//Setup objects using Vertex Buffer Objects (VBOs)
+	setUpSunVBO();
+
 	//Texture loading
 	//background
 	backGroundTextures.push_back(backGroundTexture1 =
@@ -224,13 +192,6 @@ void init(int argc, char* argv[])
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
 		0.6f, 0.9f, 0.3f, 0.5f
 	});
-
-	//Sun
-	sunTexture = 
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
-
-	// Setup objects using Vertex Buffer Objects (VBOs)
-	setUpSunVBO();
 }
 
 
@@ -307,46 +268,12 @@ void drawClouds()
 
 void setUpSunVBO(void)
 {
-	// Setup VBO for the sun object position data
-	glGenBuffers(1, &sunPosVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, sunPosVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sunVertices), sunVertices, GL_STATIC_DRAW);
 
-	// Setup VBO for the sun object texture coord data
-	glGenBuffers(1, &sunTexCoordVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, sunTexCoordVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sunTextureCoords), sunTextureCoords, GL_STATIC_DRAW);
-
-	// Setup sun vertex index array
-	glGenBuffers(1, &sunIndicesVBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sunIndicesVBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sunIndices), sunIndices, GL_STATIC_DRAW);
 }
 
 void drawSunVBO(void)
 {
-	glUseProgram(myShaderProgram);
-	// Bind Texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, sunTexture);
-	glUniform1i(glGetUniformLocation(myShaderProgram, "sunTexture"), 0);
-	glEnable(GL_TEXTURE_2D);
 
-	// Bind position buffer and enable
-	glBindBuffer(GL_ARRAY_BUFFER, sunPosVBO);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-	// Bind texture coordinate buffer and enable
-	glBindBuffer(GL_ARRAY_BUFFER, sunTexCoordVBO);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
-	glEnableVertexAttribArray(1);
-
-	// Bind the index buffer
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sunIndicesVBO);
-
-	// Draw the sun shape using indexed drawing
-	glDrawElements(GL_TRIANGLES, sizeof(sunIndices) / sizeof(unsigned int), GL_UNSIGNED_INT, (GLvoid*)0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
