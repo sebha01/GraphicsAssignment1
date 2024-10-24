@@ -197,20 +197,24 @@ void drawCloud()
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glBindTexture(GL_TEXTURE_2D, cloud2);
 	glEnable(GL_TEXTURE_2D);
 
+	//Cloud 1
+	glBindTexture(GL_TEXTURE_2D, cloud1);
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.95f); glVertex2f(0.1f, 0.5f);  // Bottom-left corner of quad
+	glTexCoord2f(0.95f, 0.95f); glVertex2f(0.2f, 0.5f);  // Bottom-right corner of quad
+	glTexCoord2f(0.95f, 0.0f); glVertex2f(0.2f, 0.6f);  // Top-right corner of quad
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.1f, 0.6f);  // Top-left corner of quad
+	glEnd();
 
+	//Cloud 2
+	glBindTexture(GL_TEXTURE_2D, cloud2); 
+	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2f(0.5f, 0.7f);  // Bottom-left corner of quad
 	glTexCoord2f(1.0f, 1.0f); glVertex2f(0.9f, 0.7f);  // Bottom-right corner of quad
 	glTexCoord2f(1.0f, 0.0f); glVertex2f(0.9f, 0.9f);  // Top-right corner of quad
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(0.5f, 0.9f);  // Top-left corner of quad
-
-
-	glEnd();
-	
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
