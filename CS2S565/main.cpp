@@ -25,6 +25,7 @@ void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2);
 void drawClouds(void);
 //Functions for the sun
 void setUpSunVBO(void);
+void drawSunVBO(void);
 
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
@@ -45,11 +46,15 @@ float theta1 = 0.1f;
 float theta2 = 0.0f;
 float theta1b = glm::radians(45.0f);
 
+////////////////////////
 //background variables
+////////////////////////
 vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
+/////////////////
 //Cloud variables
+//////////////////
 struct Cloud 
 {
 	GLuint texture;
@@ -57,9 +62,15 @@ struct Cloud
 };
 vector<Cloud> Clouds;
 
+/////////////////////////
 //Sun variables 
+///////////////////////
 GLuint sunTexture;
-GLuint sunPosVBO;
+
+GLuint sunPosVBO;        // VBO for position data
+GLuint sunTexCoordVBO;   // VBO for texture coordinate data
+GLuint sunIndicesVBO;    // VBO for index data
+
 float sunVertices[] = 
 {
 	// Positions
@@ -72,14 +83,32 @@ float sunVertices[] =
 	-0.8f,  0.6f,    //Bottom left
 	-0.9f,  0.7f,    //Lower Left
 };
+// Texture Coordinates for each vertex (adjust these based on your texture)
+float sunTextureCoords[] = {
+	0.0f, 1.0f,  // Upper left
+	0.5f, 1.0f,  // Top left
+	1.0f, 1.0f,  // Top right
+	1.0f, 0.5f,  // Upper right
+	1.0f, 0.0f,  // Lower right
+	0.5f, 0.0f,  // Bottom right
+	0.0f, 0.0f,  // Bottom left
+	0.0f, 0.5f   // Lower left
+};
+// Indices for the sun shape
+unsigned int sunIndices[] = {
+	0, 1, 2,  // First triangle
+	2, 3, 4,  // Second triangle
+	4, 5, 6,  // Third triangle
+	6, 7, 0   // Fourth triangle (closing)
+};
 
-
+///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
 bool mDown = false;
 glm::mat4 model_view= glm::mat4(1);
 
-
+//////////////////////////
 // Shader program object
 GLuint myShaderProgram;
 GLuint locT; // Location of "T" uniform variable
@@ -214,6 +243,7 @@ void display(void)
 	//draw scene background
 	drawBackGround();
 	drawClouds();
+	drawSunVBO();
 
 	//call our function to render our shape hierarchy
 
@@ -277,10 +307,46 @@ void drawClouds()
 
 void setUpSunVBO(void)
 {
-	// setup VBO for the star object position data
+	// Setup VBO for the sun object position data
 	glGenBuffers(1, &sunPosVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, sunPosVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(sunVertices), sunVertices, GL_STATIC_DRAW);
+
+	// Setup VBO for the sun object texture coord data
+	glGenBuffers(1, &sunTexCoordVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, sunTexCoordVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sunTextureCoords), sunTextureCoords, GL_STATIC_DRAW);
+
+	// Setup sun vertex index array
+	glGenBuffers(1, &sunIndicesVBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sunIndicesVBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sunIndices), sunIndices, GL_STATIC_DRAW);
+}
+
+void drawSunVBO(void)
+{
+	glUseProgram(myShaderProgram);
+	// Bind Texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, sunTexture);
+	glUniform1i(glGetUniformLocation(myShaderProgram, "sunTexture"), 0);
+	glEnable(GL_TEXTURE_2D);
+
+	// Bind position buffer and enable
+	glBindBuffer(GL_ARRAY_BUFFER, sunPosVBO);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	// Bind texture coordinate buffer and enable
+	glBindBuffer(GL_ARRAY_BUFFER, sunTexCoordVBO);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(1);
+
+	// Bind the index buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sunIndicesVBO);
+
+	// Draw the sun shape using indexed drawing
+	glDrawElements(GL_TRIANGLES, sizeof(sunIndices) / sizeof(unsigned int), GL_UNSIGNED_INT, (GLvoid*)0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
