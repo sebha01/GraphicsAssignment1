@@ -48,13 +48,14 @@ vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
 
 //Cloud variables
+struct Cloud 
+{
+	GLuint texture;
+	float x1, x2, y1, y2;
+};
+
 GLuint cloud1, cloud2, cloud3, cloud4, cloud5, cloud6;
-vector<GLuint> Clouds;
-vector<float> cloudX1Pos = { 0.0f, 0.5f, -0.4f, -0.1f, -0.1f, 0.6f};
-vector<float> cloudX2Pos = { 0.3f, 0.9f, -0.8f, 0.4f, -0.4f,  0.9f};
-vector<float> cloudY1Pos = { 0.4f, 0.7f, 0.3f, 0.7f, 0.5f, 0.3f};
-vector<float> cloudY2Pos = { 0.6f, 0.9f, 0.5f, 1.0f, 0.7f, 0.5f};
-const int numberOfClouds = 6;
+vector<Cloud> Clouds;
 
 
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -81,7 +82,7 @@ int main(int argc, char* argv[])
 }
 
 
-void init(int argc, char* argv[]) 
+void init(int argc, char* argv[])
 {
 	// 1. Initialise FreeGLUT
 	glutInit(&argc, argv);
@@ -137,7 +138,7 @@ void init(int argc, char* argv[])
 	locT = glGetUniformLocation(myShaderProgram, "T");
 
 	// Setup objects using Vertex Buffer Objects (VBOs)
-	
+
 	//Texture loading
 	//background
 	backGroundTextures.push_back(backGroundTexture1 =
@@ -150,18 +151,36 @@ void init(int argc, char* argv[])
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background3.png"));
 
 	//clouds
-	Clouds.push_back(cloud1 = 
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud8.png"));
-	Clouds.push_back(cloud2 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png"));
-	Clouds.push_back(cloud3 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud7.png"));
-	Clouds.push_back(cloud4 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud4.png"));
-	Clouds.push_back(cloud5 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud5.png"));
-	Clouds.push_back(cloud6 =
-		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"));
+	Clouds.push_back
+	({
+		cloud1 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud8.png"),
+		0.0f, 0.3f, 0.4f, 0.6f
+	});
+	Clouds.push_back
+	({
+		cloud2 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud2.png"),
+		0.5f, 0.9f, 0.7f, 0.9f
+	});
+	Clouds.push_back
+	({
+		cloud3 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud7.png"),
+		-0.4f, -0.8f, 0.3f, 0.5f
+	});
+	Clouds.push_back
+	({
+		cloud4 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud4.png"),
+		-0.1f, 0.4f, 0.7f, 1.0f
+	});
+	Clouds.push_back
+	({
+		cloud5 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud5.png"),
+		-0.1f, -0.4f, 0.5f, 0.7f
+	});
+	Clouds.push_back
+	({
+		cloud6 = wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
+		0.6f, 0.9f, 0.3f, 0.5f
+	});
 }
 
 
@@ -229,9 +248,9 @@ void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2)
 // New function to draw the Quad with the cloud texture
 void drawClouds() 
 {
-	for (int i = 0; i < numberOfClouds; i++)
+	for (int i = 0; i < Clouds.size(); i++)
 	{
-		drawOneCloud(Clouds[i], cloudX1Pos[i], cloudX2Pos[i], cloudY1Pos[i], cloudY2Pos[i]);
+		drawOneCloud(Clouds[i].texture, Clouds[i].x1, Clouds[i].x2, Clouds[i].y1, Clouds[i].y2);
 	}
 }
 

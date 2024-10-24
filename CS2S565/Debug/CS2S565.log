@@ -1,7 +1,8 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CS2S565.vcxproj, week04.vcxproj, week06.vcxproj, Week07.vcxproj, Week08.vcxproj, Week09.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(193,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(273,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(274,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(275,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(212,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(251,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(292,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(293,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(294,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   CS2S565.vcxproj -> C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\Debug\Assignment1.exe
