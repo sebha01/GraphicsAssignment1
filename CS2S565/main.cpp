@@ -247,8 +247,8 @@ void drawClouds()
 	glBindTexture(GL_TEXTURE_2D, cloud5); 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.1f, 0.5f);  // Bottom-left corner of quad
-	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.5f, 0.5f);  // Bottom-right corner of quad
-	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.5f, 0.7f);  // Top-right corner of quad
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.4f, 0.5f);  // Bottom-right corner of quad
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.4f, 0.7f);  // Top-right corner of quad
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.1f, 0.7f);  // Top-left corner of quad
 	glEnd();
 	
