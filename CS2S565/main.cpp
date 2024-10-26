@@ -65,7 +65,24 @@ vector<Cloud> Clouds;
 /////////////////////////
 //Sun variables 
 ///////////////////////
+GLuint quadVBO, quadTexVBO, sunTexture;
 
+static GLfloat sunVertices[] =
+{
+	-0.95f, 0.5f,
+	-0.95f, 0.9f,
+	-0.65f, 0.5f,
+	-0.65f, 0.9f
+
+};
+
+static GLfloat sunTextureCoords[] =
+{
+	0.0f, 1.0f,
+	0.0f, 0.0f,
+	1.0f, 1.0f,
+	1.0f, 0.0f
+};
 
 ///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -192,6 +209,9 @@ void init(int argc, char* argv[])
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
 		0.6f, 0.9f, 0.3f, 0.5f
 	});
+
+	sunTexture = 
+		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\Sun.png");
 }
 
 
@@ -268,12 +288,58 @@ void drawClouds()
 
 void setUpSunVBO(void)
 {
+	glGenBuffers(1, &quadVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof( sunVertices), sunVertices, GL_STATIC_DRAW);
 
+	// Specify the vertex attribute (location = 0 for position)
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	// Create and bind the VBO for the texture coordinates
+	glGenBuffers(1, &quadTexVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, quadTexVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sunTextureCoords), sunTextureCoords, GL_STATIC_DRAW);
+
+	// Specify the vertex attribute (location = 1 for texture coordinates)
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	// Unbind the current buffer to avoid accidental modifications
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void drawSunVBO(void)
 {
+	// Use the shader program
+	//glUseProgram(myShaderProgram);
 
+	// Bind the texture (if using one)
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, sunTexture);
+
+	// Set the texture uniform
+	glUniform1i(glGetUniformLocation(myShaderProgram, "sunTexture"), 0);
+
+	// Bind and enable the VBO for vertex positions (attribute 0)
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	// Bind and enable the VBO for texture coordinates (attribute 1)
+	glBindBuffer(GL_ARRAY_BUFFER, quadTexVBO);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	// Draw the quad using the vertex data from the VBOs
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+	// Disable the vertex attribute arrays
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
+	// Unbind the VBO to avoid accidental modifications
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
