@@ -311,13 +311,10 @@ void setUpSunVBO(void)
 
 void drawSunVBO(void)
 {
-	// Use the shader program
-	//glUseProgram(myShaderProgram);
 
 	// Bind the texture (if using one)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, sunTexture);
-	glEnable(GL_TEXTURE_2D);
 
 	// Set the texture uniform
 	glUniform1i(glGetUniformLocation(myShaderProgram, "sunTexture"), 0);
@@ -334,8 +331,6 @@ void drawSunVBO(void)
 
 	// Draw the quad using the vertex data from the VBOs
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	glDisable(GL_TEXTURE_2D);
 
 	// Disable the vertex attribute arrays
 	glDisableVertexAttribArray(0);
