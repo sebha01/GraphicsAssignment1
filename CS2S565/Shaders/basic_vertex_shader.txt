@@ -24,6 +24,6 @@ void main(void) {
 	outputVertex.colour = colour;
 	outputVertex.textureCoord = textureCoord;
 	vec4 pos = vec4(position.x, position.y, 0.0, 1.0);
-	gl_Position = T* pos; // MUST set gl_Position;
+	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+	//T* pos; // MUST set gl_Position;
 }
-

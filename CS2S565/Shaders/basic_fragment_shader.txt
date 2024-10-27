@@ -17,6 +17,6 @@ uniform sampler2D sunTexture;
 void main(void) 
 {
 	//fragmentColour = inputFragment.colour;
-	//fragmentColour = vec4(0.0,1.0,0.0,1.0);
-	fragmentColour = texture(sunTexture, inputFragment.textureCoord); 
+	fragmentColour = vec4(0.0,1.0,0.0,1.0);
+	//fragmentColour = texture(sunTexture, inputFragment.textureCoord); 
 }

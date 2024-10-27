@@ -14,33 +14,6 @@
 
 using namespace std;
 
-//Vertex Shader Source code
-const char* vertexShaderSource = 
-R"(
-	#version 330 core
-
-	layout (location = 0) in vec2 aPos;
-
-	void main()
-	{
-		gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-	}
-)";
-
-
-//Fragment Shader source code
-const char* fragmentShaderSource = 
-R"(
-	#version 330 core
-
-	out vec4 FragColor;
-
-	void main()
-	{
-		FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);
-	}
-)";
-
 // Main function prototypes
 void init(int argc, char* argv[]);
 void display(void);
@@ -229,26 +202,6 @@ void init(int argc, char* argv[])
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &numAttributeSlots);
 	cout << "GL_MAX_VERTEX_ATTRIBS = " << numAttributeSlots << endl;
 
-	//Set up vertex shader
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	//set up fragment shader
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	//Set up myShaderProgram
-	myShaderProgram = glCreateProgram();
-	glAttachShader(myShaderProgram, vertexShader);
-	glAttachShader(myShaderProgram, fragmentShader);
-	glLinkProgram(myShaderProgram);
-
-	//Delete the shaders after it has all been set up as they are now in the program
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
 	//Setup objects using Vertex Buffer Objects (VBOs)
 	setUpSunVAOandVBO();
 	setUpFloorVAOandVBO();
@@ -258,8 +211,8 @@ void init(int argc, char* argv[])
 	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
 	// Shader setup - more on this next week!!!
-	//myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
-	//locT = glGetUniformLocation(myShaderProgram, "T");
+	myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
+	locT = glGetUniformLocation(myShaderProgram, "T");
 
 	//Texture loading
 	//background
