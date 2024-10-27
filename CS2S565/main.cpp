@@ -14,33 +14,6 @@
 
 using namespace std;
 
-//Vertex Shader Source code
-const char* vertexShaderSource = 
-R"(
-	#version 330 core
-
-	layout (location = 0) in vec2 aPos;
-
-	void main()
-	{
-		gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-	}
-)";
-
-
-//Fragment Shader source code
-const char* fragmentShaderSource = 
-R"(
-	#version 330 core
-
-	out vec4 FragColor;
-
-	void main()
-	{
-		FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);
-	}
-)";
-
 // Main function prototypes
 void init(int argc, char* argv[]);
 void display(void);
