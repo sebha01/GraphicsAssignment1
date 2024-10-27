@@ -20,14 +20,10 @@ R"(
 	#version 330 core
 
 	layout (location = 0) in vec2 aPos;
-	layout (location = 1) in vec2 textureCoords;
-
-	out Vec2 TexCoords;
 
 	void main()
 	{
-		gl_Position = vec4(aPos.x, aPos.y, 1.0f);
-		TexCoords = textureCoords;
+		gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
 	}
 )";
 
@@ -37,14 +33,11 @@ const char* fragmentShaderSource =
 R"(
 	#version 330 core
 
-	in vec2 TexCoords;
-	layout (location = 0) out vec4 FragColor;
-
-	uniform sampler2D sunTexture;
+	out vec4 FragColor;
 
 	void main()
 	{
-	   FragColor = texture(sunTexture, TexCoords);
+		FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);
 	}
 )";
 
@@ -143,12 +136,12 @@ GLfloat floorVertices[] =
 /////////////////////////////////////////
 GLfloat collectableVertices[] =
 {
-	0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-	-0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-	0.0f, -0.5f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
-	0.5f / 2, -0.5f * float(sqrt(3)) / 6, 0.0f, // Inner left
-	-0.5f / 2, -0.5f * float(sqrt(3)) / 6, 0.0f, // Inner right
-	0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
+	0.1f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
+	-0.1f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
+	0.0f, -0.1f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
+	0.1f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner left
+	-0.1f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner right
+	0.0f, 0.1f * float(sqrt(3)) / 3, 0.0f // Inner down
 };
 
 GLuint collectableIndices[] =
@@ -262,7 +255,7 @@ void init(int argc, char* argv[])
 	setUpCollectable();
 
 	// 3. Initialise OpenGL settings and objects we'll use in our scene
-	glClearColor(0.02f, 0.5f, 0.3f, 0.f);
+	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
 	// Shader setup - more on this next week!!!
 	//myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
@@ -419,8 +412,8 @@ void drawSunVAOandVBO(void)
 	glUseProgram(myShaderProgram);
 
 	// Set texture uniform
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, sunTexture);
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, sunTexture);
 
 	// Bind VAO and draw the quad
 	glBindVertexArray(sunVAO);
