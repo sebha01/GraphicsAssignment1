@@ -24,8 +24,8 @@ void drawBackGround(void);
 void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2);
 void drawClouds(void);
 //Functions for the sun
-void setUpSunVAOandVBO(void);
-void drawSunVAOandVBO(void);
+void drawSun(void);
+void updateSunPosition(int value);
 //Functions for the floor sprite
 void setUpFloorVAOandVBO(void);
 void drawFloorVAOandVBO(void);
@@ -72,24 +72,11 @@ vector<Cloud> Clouds;
 /////////////////////////
 //Sun variables 
 ///////////////////////
-GLuint sunVAO, sunVBO, sunTexVBO, sunTexture;
+GLuint sunTexture;
 
-GLfloat sunVertices[] =
-{
-	-0.95f, 0.5f,
-	-0.95f, 0.9f,
-	-0.65f, 0.5f,
-	-0.65f, 0.9f
-
-};
-
-GLfloat sunTextureCoords[] =
-{
-	0.0f, 1.0f,
-	0.0f, 0.0f,
-	1.0f, 1.0f,
-	1.0f, 0.0f
-};
+float sunY = 1.0f; 
+float sunSpeed = 0.001f; 
+bool movingUp = true; 
 
 ////////////////////////////////////////
 //Floor vairables
@@ -109,12 +96,12 @@ GLfloat floorVertices[] =
 /////////////////////////////////////////
 GLfloat collectableVertices[] =
 {
-	0.09f,      0.1f * float(sqrt(3)) / 3,      0.0f, 	
-	-0.09f,     0.1f * float(sqrt(3)) / 3,      0.0f,	
-	0.0f,	    -0.1f * float(sqrt(3)) * 2 / 3, 0.0f,	
-	0.09f / 2,  -0.1f * float(sqrt(3)) / 6,     0.0f,	
-	-0.09f / 2, -0.1f * float(sqrt(3)) / 6,     0.0f,	
-	0.0f,       0.1f * float(sqrt(3)) / 3,      0.0f	
+	0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f, 	
+	-0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f,	
+	0.0f, -0.1f * float(sqrt(3)) * 2 / 3, 0.0f,	
+	0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f,	
+	-0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f,	
+	0.0f, 0.1f * float(sqrt(3)) / 3, 0.0f	
 };
 
 GLuint collectableIndices[] =
@@ -155,7 +142,7 @@ GLuint locT; // Location of "T" uniform variable
 int main(int argc, char* argv[]) 
 {
 	init(argc, argv);
-
+	glutTimerFunc(0, updateSunPosition, 0);
 	glutMainLoop();
 
 	return 0;
@@ -168,7 +155,7 @@ void init(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 
 	glutInitWindowSize(1500, 1000);
 	glutInitWindowPosition(500, 150);
@@ -209,21 +196,20 @@ void init(int argc, char* argv[])
 	cout << "GL_MAX_VERTEX_ATTRIBS = " << numAttributeSlots << endl;
 
 	//Setup objects using Vertex Buffer Objects (VBOs)
-	setUpSunVAOandVBO();
 	setUpFloorVAOandVBO();
 	setUpCollectable();
 
 	// 3. Initialise OpenGL settings and objects we'll use in our scene
-	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+	//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
 	// Shader setup - more on this next week!!!
 	myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
-	//locT = glGetUniformLocation(myShaderProgram, "T");
+	locT = glGetUniformLocation(myShaderProgram, "T");
 
 	//Texture loading
 	//background
 	backGroundTextures.push_back(backGroundTexture1 =
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\background1.png"));
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background1.png"));
 
 	backGroundTextures.push_back(backGroundTexture2 =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background2.png"));
@@ -265,7 +251,6 @@ void init(int argc, char* argv[])
 
 	sunTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
-
 }
 
 
@@ -274,11 +259,14 @@ void display(void)
 {
 	//clear the buffers to the following preset values
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+
+	//glUseProgram(myShaderProgram);
 
 	//draw scene background
 	drawBackGround();
 	drawClouds();
-	drawSunVAOandVBO();
+	drawSun();
 	drawFloorVAOandVBO();
 	drawCollectable();
 
@@ -289,7 +277,7 @@ void display(void)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// SCENE FUNCTIONS
+// BACKGROUND SCENE FUNCTIONS
 ////////////////////////////////////////////////////////////////////////////////
 void drawBackGround(void)
 {
@@ -312,6 +300,8 @@ void drawBackGround(void)
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	}
+
+	glDisable(GL_BLEND);
 }
 
 void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2)
@@ -333,7 +323,6 @@ void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2)
 	glDisable(GL_BLEND);
 }
 
-// New function to draw the Quad with the cloud texture
 void drawClouds() 
 {
 	for (int i = 0; i < Clouds.size(); i++)
@@ -342,45 +331,47 @@ void drawClouds()
 	}
 }
 
-void setUpSunVAOandVBO(void)
+void drawSun(void)
 {
-	// Generate and bind the VAO
-	glGenVertexArrays(1, &sunVAO);
-	glBindVertexArray(sunVAO);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// Generate VBO for positions and bind data
-	glGenBuffers(1, &sunVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, sunVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sunVertices), sunVertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, sunTexture);
 
-	// Generate VBO for texture coordinates and bind data
-	glGenBuffers(1, &sunTexVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, sunTexVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sunTextureCoords), sunTextureCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(1);
+	glBegin(GL_TRIANGLE_STRIP);
 
-	// Unbind to avoid unintended modifications
-	glBindVertexArray(0);
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.95f, sunY - 0.4f);
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.95f, sunY);
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(-0.65f, sunY - 0.4f);
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.65f, sunY);
+
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 }
 
-void drawSunVAOandVBO(void)
+void updateSunPosition(int value)
 {
-	glUseProgram(myShaderProgram);
+	if (movingUp) 
+	{
+		sunY += sunSpeed; 
+		if (sunY >= 1.0f)
+		{
+			movingUp = false;
+		}
+	}
+	else 
+	{
+		sunY -= sunSpeed; 
+		if (sunY <= 0.8f)
+		{
+			movingUp = true;
+		} 
+	}
 
-	// Set texture uniform
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, sunTexture);
-
-	// Bind VAO and draw the quad
-	glBindVertexArray(sunVAO);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	// Unbind VAO and texture after drawing
-	glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glutPostRedisplay();
+	glutTimerFunc(16, updateSunPosition, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -437,8 +428,6 @@ void setUpFloorVAOandVBO(void)
 
 void drawFloorVAOandVBO(void)
 {
-	glUseProgram(myShaderProgram);
-
 	glBindVertexArray(floorVAO);
 	glDrawArrays(GL_QUADS, 0, 4);
 		
@@ -481,7 +470,6 @@ void setUpCollectable(void)
 
 void drawCollectable(void)
 {
-	glUseProgram(myShaderProgram);
 	glBindVertexArray(collectableVAO);
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
@@ -490,7 +478,7 @@ void drawCollectable(void)
 ////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLING FUNCTIONS
 ////////////////////////////////////////////////////////////////////////////////
-
+  
 #pragma region Event handling functions
 
 void mouseButtonDown(int button_id, int state, int x, int y) 
