@@ -136,11 +136,11 @@ GLfloat floorVertices[] =
 /////////////////////////////////////////
 GLfloat collectableVertices[] =
 {
-	0.1f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-	-0.1f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
+	0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
+	-0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
 	0.0f, -0.1f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
-	0.1f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner left
-	-0.1f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner right
+	0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner left
+	-0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner right
 	0.0f, 0.1f * float(sqrt(3)) / 3, 0.0f // Inner down
 };
 
@@ -486,6 +486,9 @@ void drawFloorVAOandVBO(void)
 	glBindVertexArray(0);
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+// COLLECTABLE FUNCTIONS
+////////////////////////////////////////////////////////////////////////////////////
 void setUpCollectable(void)
 {
 	glGenVertexArrays(1, &collectableVAO);
@@ -515,8 +518,6 @@ void drawCollectable(void)
 	glBindVertexArray(collectableVAO);
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 }
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLING FUNCTIONS
