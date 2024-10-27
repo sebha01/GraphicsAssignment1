@@ -64,6 +64,10 @@ void drawSunVAOandVBO(void);
 void setUpFloorVAOandVBO(void);
 void drawFloorVAOandVBO(void);
 
+//Collectable item
+void setUpCollectable(void);
+void drawCollectable(void);
+
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
 void mouseMove(int x, int y);
@@ -134,6 +138,29 @@ GLfloat floorVertices[] =
 	1.0f, -0.7f //Top right
 };
 
+/////////////////////////////////////////
+// Collectable variables
+/////////////////////////////////////////
+GLfloat collectableVertices[] =
+{
+	-0.5f, -0.5f,
+	0.5f, -0.5f,
+	0.0f, 0.5f,
+	-0.5f / 2, 0.5f,
+	0.5f / 2, 0.5f,
+	0.0f, -0.5f,
+};
+
+GLuint collectableIndices[] =
+{
+	0, 3, 5,
+	3, 2, 4, 
+	5, 4, 1
+};
+
+GLuint collectableVAO, collectableVBO, collectableEBO;
+
+
 ///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
@@ -158,8 +185,16 @@ int main(int argc, char* argv[])
 	glutMainLoop();
 
 	//To keep things clean delete the objects and programs
+	glDeleteVertexArrays(1, &sunVAO);
+	glDeleteBuffers(1, &sunVBO);
+
 	glDeleteVertexArrays(1, &floorVAO);
 	glDeleteBuffers(1, &floorVBO);
+
+	glDeleteVertexArrays(1, &collectableVAO);
+	glDeleteBuffers(1, &collectableVBO);
+	glDeleteBuffers(1, &collectableEBO);
+	
 	glDeleteProgram(myShaderProgram);
 
 	return 0;
@@ -237,6 +272,7 @@ void init(int argc, char* argv[])
 	//Setup objects using Vertex Buffer Objects (VBOs)
 	setUpSunVAOandVBO();
 	setUpFloorVAOandVBO();
+	setUpCollectable();
 
 	// 3. Initialise OpenGL settings and objects we'll use in our scene
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -305,6 +341,7 @@ void display(void)
 	drawClouds();
 	drawSunVAOandVBO();
 	drawFloorVAOandVBO();
+	drawCollectable();
 
 	//call our function to render our shape hierarchy
 
@@ -461,13 +498,49 @@ void setUpFloorVAOandVBO(void)
 
 void drawFloorVAOandVBO(void)
 {
-	//glUseProgram(myShaderProgram);
+	glUseProgram(myShaderProgram);
 
 	glBindVertexArray(floorVAO);
 	glDrawArrays(GL_QUADS, 0, 4);
 		
 	glBindVertexArray(0);
 }
+
+void setUpCollectable(void)
+{
+	//An EBO is a buffer that allows users to reuse vertices to create multiple primitives.
+
+	//Create the objects
+	glGenVertexArrays(1, &collectableVAO);
+	glGenBuffers(1, &collectableVBO);
+	glGenBuffers(1, &collectableEBO);
+
+	//Bind the objects
+	//Bind VAO
+	glBindVertexArray(collectableVAO);
+	//Bind VBO
+	glBindBuffer(GL_ARRAY_BUFFER, collectableVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(collectableVertices), collectableVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (void*)0); // Attribute 0 for position
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, collectableEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(collectableIndices), collectableIndices, GL_STATIC_DRAW);
+	 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+void drawCollectable(void)
+{
+	glUseProgram(myShaderProgram);
+
+	glBindVertexArray(collectableVAO);
+	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+
+	glBindVertexArray(0);
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
