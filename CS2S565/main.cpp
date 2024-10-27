@@ -109,12 +109,12 @@ GLfloat floorVertices[] =
 /////////////////////////////////////////
 GLfloat collectableVertices[] =
 {
-	0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-	-0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-	0.0f, -0.1f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
-	0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner left
-	-0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f, // Inner right
-	0.0f, 0.1f * float(sqrt(3)) / 3, 0.0f // Inner down
+	0.09f,      0.1f * float(sqrt(3)) / 3,      0.0f, 	
+	-0.09f,     0.1f * float(sqrt(3)) / 3,      0.0f,	
+	0.0f,	    -0.1f * float(sqrt(3)) * 2 / 3, 0.0f,	
+	0.09f / 2,  -0.1f * float(sqrt(3)) / 6,     0.0f,	
+	-0.09f / 2, -0.1f * float(sqrt(3)) / 6,     0.0f,	
+	0.0f,       0.1f * float(sqrt(3)) / 3,      0.0f	
 };
 
 GLuint collectableIndices[] =
@@ -124,7 +124,17 @@ GLuint collectableIndices[] =
 	5, 4, 1
 };
 
-GLuint collectableVAO, collectableVBO, collectableEBO;
+GLfloat collectableColours[] =
+{
+	1.0f, 1.0f, 1.0f,
+	0.5f, 1.0f, 0.0f,
+	0.0f, 0.0f, 1.0f,
+	1.0f, 0.0f, 0.0f,
+	0.0f, 1.0f, 0.0f,
+	0.2f, 0.02f, 0.8f,
+};
+
+GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO;
 
 
 ///////////////////////////////
@@ -135,8 +145,6 @@ glm::mat4 model_view= glm::mat4(1);
 
 //////////////////////////
 // Shader program object
-GLuint vertexShader;
-GLuint fragmentShader;
 GLuint myShaderProgram;
 GLuint locT; // Location of "T" uniform variable
 
@@ -158,7 +166,6 @@ void init(int argc, char* argv[])
 {
 	// 1. Initialise FreeGLUT
 	glutInit(&argc, argv);
-
 	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
@@ -169,7 +176,6 @@ void init(int argc, char* argv[])
 
 	// Display callback
 	glutDisplayFunc(display);
-
 	// Register keyboard and mouse callback functions
 	glutKeyboardFunc(keyDown);
 	glutMouseFunc(mouseButtonDown);
@@ -212,7 +218,7 @@ void init(int argc, char* argv[])
 
 	// Shader setup - more on this next week!!!
 	myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
-	locT = glGetUniformLocation(myShaderProgram, "T");
+	//locT = glGetUniformLocation(myShaderProgram, "T");
 
 	//Texture loading
 	//background
@@ -447,6 +453,7 @@ void setUpCollectable(void)
 	glGenVertexArrays(1, &collectableVAO);
 	glGenBuffers(1, &collectableVBO);
 	glGenBuffers(1, &collectableEBO);
+	glGenBuffers(1, &collectableColoursVBO);
 
 	glBindVertexArray(collectableVAO);
 
@@ -457,8 +464,15 @@ void setUpCollectable(void)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(collectableIndices), collectableIndices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
 	glEnableVertexAttribArray(0);
+
+	// Color VBO
+	glBindBuffer(GL_ARRAY_BUFFER, collectableColoursVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(collectableColours), collectableColours, GL_STATIC_DRAW);
+
+	// Set color attribute (location = 1 in the shader)
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -470,6 +484,7 @@ void drawCollectable(void)
 	glUseProgram(myShaderProgram);
 	glBindVertexArray(collectableVAO);
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

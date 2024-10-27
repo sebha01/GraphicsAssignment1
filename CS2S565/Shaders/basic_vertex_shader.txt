@@ -1,29 +1,14 @@
 #version 330
 
-uniform mat4 T;
+//uniform mat4 T;
 
-// input vertex packet
-layout (location = 0) in vec4 position;
-layout (location = 1) in vec4 colour;
-layout (location = 2) in vec2 textureCoord;
+layout (location = 0) in vec3 aPosition;
+layout (location = 1) in vec3 aColour;
 
+out vec3 colour;
 
-
-// output vertex packet
-out packet {
-
-	vec4 colour;
-	vec2 textureCoord;
-
-} outputVertex;
-
-
-
-void main(void) {
-
-	outputVertex.colour = colour;
-	outputVertex.textureCoord = textureCoord;
-	vec4 pos = vec4(position.x, position.y, 0.0, 1.0);
-	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-	//T* pos; // MUST set gl_Position;
+void main(void) 
+{
+	gl_Position = vec4(aPos, 1.0);
+	colour = aColour;
 }
