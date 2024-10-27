@@ -14,6 +14,33 @@
 
 using namespace std;
 
+//Vertex Shader Source code
+const char* vertexShaderSource = 
+R"(
+	#version 330 core
+
+	layout (location = 0) in vec3 aPos;
+
+	void main()
+	{
+		gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+	}
+)";
+
+
+//Fragment Shader source code
+const char* fragmentShaderSource = 
+R"(
+	#version 330 core
+
+	out vec4 FragColor;
+
+	void main()
+	{
+	   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);
+	}
+)";
+
 // Main function prototypes
 void init(int argc, char* argv[]);
 void display(void);
@@ -26,6 +53,9 @@ void drawClouds(void);
 //Functions for the sun
 void setUpSunVBO(void);
 void drawSunVBO(void);
+//Functions for the floor sprite
+void setUpFloor(void);
+void drawFloor(void);
 
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
@@ -84,6 +114,17 @@ static GLfloat sunTextureCoords[] =
 	1.0f, 0.0f
 };
 
+////////////////////////////////////////
+//Floor vairables
+////////////////////////////////////////
+GLfloat floorVertices[] =
+{
+	-1.0f, -0.5f,//Top left
+	-1.0f, -1.0f, //Bottom left
+	1.0f, -1.0f, // Bottom right
+	1.0f, -0.5f //Top right
+};
+
 ///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
@@ -92,6 +133,8 @@ glm::mat4 model_view= glm::mat4(1);
 
 //////////////////////////
 // Shader program object
+GLuint vertexShader;
+GLuint fragmentShader;
 GLuint myShaderProgram;
 GLuint locT; // Location of "T" uniform variable
 
@@ -157,15 +200,35 @@ void init(int argc, char* argv[])
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &numAttributeSlots);
 	cout << "GL_MAX_VERTEX_ATTRIBS = " << numAttributeSlots << endl;
 
+	//Set up vertex shader
+	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(fragmentShader);
+
+	//set up fragment shader
+	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
+
+	//Set up myShaderProgram
+	myShaderProgram = glCreateProgram();
+	glAttachShader(myShaderProgram, vertexShader);
+	glAttachShader(myShaderProgram, fragmentShader);
+	glLinkProgram(myShaderProgram);
+
+	//Delete the shaders after it has all been set up as they are now in the program
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	//Setup objects using Vertex Buffer Objects (VBOs)
+	setUpSunVBO();
+
 	// 3. Initialise OpenGL settings and objects we'll use in our scene
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Shader setup - more on this next week!!!
-	myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
-	locT = glGetUniformLocation(myShaderProgram, "T");
-
-	//Setup objects using Vertex Buffer Objects (VBOs)
-	setUpSunVBO();
+	//myShaderProgram = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
+	//locT = glGetUniformLocation(myShaderProgram, "T");
 
 	//Texture loading
 	//background
@@ -211,7 +274,7 @@ void init(int argc, char* argv[])
 	});
 
 	sunTexture = 
-		fiLoadTexture("..\\..\\Common\\Resources\\Textures\\Sun.png");
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
 }
 
 
@@ -311,6 +374,7 @@ void setUpSunVBO(void)
 
 void drawSunVBO(void)
 {
+	glUseProgram(myShaderProgram);
 
 	// Bind the texture (if using one)
 	glActiveTexture(GL_TEXTURE0);
@@ -339,6 +403,20 @@ void drawSunVBO(void)
 	// Unbind the VBO to avoid accidental modifications
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// FLOOR FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////////
+void setUpFloor(void)
+{
+
+}
+
+void drawFloor(void)
+{
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLING FUNCTIONS
