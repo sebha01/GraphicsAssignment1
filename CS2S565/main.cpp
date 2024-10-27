@@ -19,11 +19,15 @@ const char* vertexShaderSource =
 R"(
 	#version 330 core
 
-	layout (location = 0) in vec3 aPos;
+	layout (location = 0) in vec2 aPos;
+	layout (location = 1) in vec2 textureCoords;
+
+	out Vec2 TexCoords;
 
 	void main()
 	{
-		gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+		gl_Position = vec4(aPos.x, aPos.y, 1.0f);
+		TexCoords = textureCoords;
 	}
 )";
 
@@ -33,11 +37,14 @@ const char* fragmentShaderSource =
 R"(
 	#version 330 core
 
-	out vec4 FragColor;
+	in Vec2 TexCoords;
+	layout (location = 0) out vec4 FragColor;
+
+	uniform sampler2D sunTexture;
 
 	void main()
 	{
-	   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);
+	   FragColor = texture(sunTexture, TexCoords);
 	}
 )";
 
@@ -51,11 +58,11 @@ void drawBackGround(void);
 void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2);
 void drawClouds(void);
 //Functions for the sun
-void setUpSunVBO(void);
-void drawSunVBO(void);
+void setUpSunVAOandVBO(void);
+void drawSunVAOandVBO(void);
 //Functions for the floor sprite
-void setUpFloor(void);
-void drawFloor(void);
+void setUpFloorVAOandVBO(void);
+void drawFloorVAOandVBO(void);
 
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
@@ -95,9 +102,9 @@ vector<Cloud> Clouds;
 /////////////////////////
 //Sun variables 
 ///////////////////////
-GLuint quadVBO, quadTexVBO, sunTexture;
+GLuint sunVAO, sunVBO, sunTexVBO, sunTexture;
 
-static GLfloat sunVertices[] =
+GLfloat sunVertices[] =
 {
 	-0.95f, 0.5f,
 	-0.95f, 0.9f,
@@ -106,7 +113,7 @@ static GLfloat sunVertices[] =
 
 };
 
-static GLfloat sunTextureCoords[] =
+GLfloat sunTextureCoords[] =
 {
 	0.0f, 1.0f,
 	0.0f, 0.0f,
@@ -117,6 +124,8 @@ static GLfloat sunTextureCoords[] =
 ////////////////////////////////////////
 //Floor vairables
 ////////////////////////////////////////
+GLuint floorVAO, floorVBO;
+
 GLfloat floorVertices[] =
 {
 	-1.0f, -0.5f,//Top left
@@ -147,6 +156,11 @@ int main(int argc, char* argv[])
 	init(argc, argv);
 
 	glutMainLoop();
+
+	//To keep things clean delete the objects and programs
+	glDeleteVertexArrays(1, &floorVAO);
+	glDeleteBuffers(1, &floorVBO);
+	glDeleteProgram(myShaderProgram);
 
 	return 0;
 }
@@ -203,7 +217,7 @@ void init(int argc, char* argv[])
 	//Set up vertex shader
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(fragmentShader);
+	glCompileShader(vertexShader);
 
 	//set up fragment shader
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -221,7 +235,8 @@ void init(int argc, char* argv[])
 	glDeleteShader(fragmentShader);
 
 	//Setup objects using Vertex Buffer Objects (VBOs)
-	setUpSunVBO();
+	setUpSunVAOandVBO();
+	setUpFloorVAOandVBO();
 
 	// 3. Initialise OpenGL settings and objects we'll use in our scene
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -275,6 +290,7 @@ void init(int argc, char* argv[])
 
 	sunTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
+
 }
 
 
@@ -287,7 +303,8 @@ void display(void)
 	//draw scene background
 	drawBackGround();
 	drawClouds();
-	drawSunVBO();
+	drawSunVAOandVBO();
+	drawFloorVAOandVBO();
 
 	//call our function to render our shape hierarchy
 
@@ -349,72 +366,107 @@ void drawClouds()
 	}
 }
 
-void setUpSunVBO(void)
+void setUpSunVAOandVBO(void)
 {
-	glGenBuffers(1, &quadVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof( sunVertices), sunVertices, GL_STATIC_DRAW);
+	// Generate and bind the VAO
+	glGenVertexArrays(1, &sunVAO);
+	glBindVertexArray(sunVAO);
 
-	// Specify the vertex attribute (location = 0 for position)
-	glEnableVertexAttribArray(0);
+	// Generate VBO for positions and bind data
+	glGenBuffers(1, &sunVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, sunVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sunVertices), sunVertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(0);
 
-	// Create and bind the VBO for the texture coordinates
-	glGenBuffers(1, &quadTexVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, quadTexVBO);
+	// Generate VBO for texture coordinates and bind data
+	glGenBuffers(1, &sunTexVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, sunTexVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(sunTextureCoords), sunTextureCoords, GL_STATIC_DRAW);
-
-	// Specify the vertex attribute (location = 1 for texture coordinates)
-	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(1);
 
-	// Unbind the current buffer to avoid accidental modifications
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// Unbind to avoid unintended modifications
+	glBindVertexArray(0);
 }
 
-void drawSunVBO(void)
+void drawSunVAOandVBO(void)
 {
 	glUseProgram(myShaderProgram);
 
-	// Bind the texture (if using one)
+	// Set texture uniform
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, sunTexture);
 
-	// Set the texture uniform
-	glUniform1i(glGetUniformLocation(myShaderProgram, "sunTexture"), 0);
-
-	// Bind and enable the VBO for vertex positions (attribute 0)
-	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	// Bind and enable the VBO for texture coordinates (attribute 1)
-	glBindBuffer(GL_ARRAY_BUFFER, quadTexVBO);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	// Draw the quad using the vertex data from the VBOs
+	// Bind VAO and draw the quad
+	glBindVertexArray(sunVAO);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-	// Disable the vertex attribute arrays
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-
-	// Unbind the VBO to avoid accidental modifications
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// Unbind VAO and texture after drawing
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 // FLOOR FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////
-void setUpFloor(void)
+void setUpFloorVAOandVBO(void)
 {
+	//Generate the VAO
+	glGenVertexArrays(1, &floorVAO);
+	//Generate the VBO
+	glGenBuffers(1, &floorVBO);
 
+	//Bind the vertex array
+	glBindVertexArray(floorVAO);
+	//Bind the buffer object for the VBO  
+	glBindBuffer(GL_ARRAY_BUFFER, floorVBO);
+	//Store vertices in VBO      
+	glBufferData(
+		GL_ARRAY_BUFFER,	//Specify type of buffer
+		sizeof(floorVertices),		//Total size of data
+		floorVertices,				//Give the actual vertices
+		GL_STATIC_DRAW				//Specify the use of the data
+		/*
+			After GL_ you choose between:
+				
+				STREAM, STATIC and DYNAMIC
+					Steam means vertices will be modded once and used a few times
+					Static means vertices will be modded once and used many many times
+					Dynamic means vertices will be modded multiple times and used many many times
+
+			Then after that is decided and you have GL_STATIC_ you choose between:
+				DRAW, READ and COPY
+					Draw means the vertices will be modified and used to draw an image on the screen
+					Video didnt really explain the other two though
+		*/
+	);		
+
+	//Pass the index of the attribute we want to use
+	glVertexAttribPointer(
+		0,						//Position of the vertex
+		2,						//How many values we have per vertex
+		GL_FLOAT,				//Tell what data types we have
+		GL_FALSE,				//Only matter if we have the values as integers
+		2 * sizeof(float),		//Stride of our vertices, the amount of data between each vertex
+		(void*)0				//Offset, pointer to where our vertices begin in the array
+	);
+	//Now the vertex attribute has been configured we need to enable it
+	glEnableVertexAttribArray(0);
+
+	//Bind both the VBA and the VBO by binding them both to 0
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
-void drawFloor(void)
+void drawFloorVAOandVBO(void)
 {
+	//glUseProgram(myShaderProgram);
 
+	glBindVertexArray(floorVAO);
+	glDrawArrays(GL_QUADS, 0, 4);
+		
+	glBindVertexArray(0);
 }
 
 
