@@ -48,7 +48,7 @@
               "RelativeDocumentMoniker": "CS2S565\\main.cpp",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\main.cpp",
               "RelativeToolTip": "CS2S565\\main.cpp",
-              "ViewState": "AgIAAAoBAAAAAAAAAAAAAOwBAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAABYBAAAAAAAAAAAkwD0BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-23T14:52:50.409Z",
               "EditorCaption": ""
@@ -63,8 +63,7 @@
               "RelativeToolTip": "CS2S565\\Shaders\\basic_fragment_shader.txt",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-10-24T19:21:35.646Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T19:21:35.646Z"
             },
             {
               "$type": "Document",
@@ -76,8 +75,7 @@
               "RelativeToolTip": "CS2S565\\Shaders\\basic_vertex_shader.txt",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-10-24T19:17:15.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T19:17:15.988Z"
             },
             {
               "$type": "Document",
@@ -89,8 +87,7 @@
               "RelativeToolTip": "CS2S565\\Character.h",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAACUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-28T13:15:45.013Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-28T13:15:45.013Z"
             },
             {
               "$type": "Document",
@@ -102,8 +99,7 @@
               "RelativeToolTip": "CS2S565\\Character.cpp",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T13:15:18.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-28T13:15:18.895Z"
             },
             {
               "$type": "Document",
@@ -115,8 +111,7 @@
               "RelativeToolTip": "CS2S565\\Square.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEMAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T13:17:44.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-28T13:17:44.116Z"
             },
             {
               "$type": "Document",
@@ -128,8 +123,7 @@
               "RelativeToolTip": "CS2S565\\Square.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-28T13:17:45.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-28T13:17:45.895Z"
             }
           ]
         }

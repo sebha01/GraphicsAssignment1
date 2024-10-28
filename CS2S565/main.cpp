@@ -315,7 +315,7 @@ void display(void)
 		//drawHierarchy(R);
 	//}
 
-	//myCharacter->renderCharacter(characterX, characterY, 0.25f, characterOrientation);
+	myCharacter->renderCharacter(characterX, characterY, 0.25f, characterOrientation);
 
 	//call our function to render our shape hierarchy
 
