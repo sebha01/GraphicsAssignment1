@@ -17,7 +17,6 @@ using namespace std;
 // Main function prototypes
 void init(int argc, char* argv[]);
 void display(void);
-void updateObjectPosition(float& coords, bool& condition, float& speed, float desiredMax, float desiredMin);
 
 //Background function prototype
 void drawBackGround(void);
@@ -43,7 +42,7 @@ void keyDown(unsigned char key, int x, int y);
 ////////////////////////////////////////
 // Globals
 ////////////////////////////////////////
-float snowmanX = 0.0f;
+float characterX = 0.0f;
 float snowmanY = 0.0f;
 float snowmanOrientation = 0.0f;
 //
