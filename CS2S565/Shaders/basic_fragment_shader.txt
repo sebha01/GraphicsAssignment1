@@ -4,8 +4,17 @@ in vec3 colour;
 in vec2 texCoordinates;
 
 out vec4 fragmentColour;
+uniform sampler2D floorTexture;
+uniform int isTexture = 0;
 
 void main(void) 
 {
-	fragmentColour = vec4(colour, 1.0);
+	if (isTexture == 1)
+	{
+		fragmentColour = texture(floorTexture, texCoordinates);
+	}
+	else
+	{
+		fragmentColour = vec4(colour, 1.0);
+	}
 }

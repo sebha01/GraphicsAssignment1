@@ -1,17 +1,5 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CS2S565.vcxproj, week04.vcxproj, week06.vcxproj, Week07.vcxproj, Week08.vcxproj, Week09.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Square.cpp
   main.cpp
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\Square.cpp(13,21): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(292,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(332,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(540,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(541,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(542,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(544,4): error C2065: 'snowmanOrientation': undeclared identifier
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(548,4): error C2065: 'snowmanX': undeclared identifier
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(549,4): error C2065: 'snowmanY': undeclared identifier
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(564,3): error C2065: 'snowmanX': undeclared identifier
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(565,3): error C2065: 'snowmanY': undeclared identifier
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(566,3): error C2065: 'snowmanOrientation': undeclared identifier
-  Character.cpp
-  Generating Code...
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(335,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(375,20): warning C4018: '<': signed/unsigned mismatch
+  CS2S565.vcxproj -> C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\Debug\Assignment1.exe
