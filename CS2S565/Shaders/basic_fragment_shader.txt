@@ -1,6 +1,8 @@
 #version 330
 
 in vec3 colour;
+in vec2 texCoordinates;
+
 out vec4 fragmentColour;
 
 void main(void) 

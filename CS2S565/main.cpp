@@ -81,7 +81,7 @@ bool movingUp = true;
 ////////////////////////////////////////
 //Floor vairables
 ////////////////////////////////////////
-GLuint floorVAO, floorVBO, floorTexCoordsVBO ,floorTexture;
+GLuint floorVAO, floorVBO ,floorTexture;
 
 GLfloat floorVertices[] =
 {
@@ -430,6 +430,7 @@ void setUpFloorVAOandVBO(void)
 		2 * sizeof(float),		//Stride of our vertices, the amount of data between each vertex
 		(void*)0				//Offset, pointer to where our vertices begin in the array
 	);
+
 	//Now the vertex attribute has been configured we need to enable it
 	glEnableVertexAttribArray(0);
 
