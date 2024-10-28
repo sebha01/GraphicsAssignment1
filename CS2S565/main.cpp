@@ -261,13 +261,14 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
-	//glUseProgram(myShaderProgram);
+	glUseProgram(0);
 
 	//draw scene background
 	drawBackGround();
 	drawClouds();
 	drawSun();
 	drawFloorVAOandVBO();
+	glUseProgram(myShaderProgram);
 	drawCollectable();
 
 	//call our function to render our shape hierarchy
