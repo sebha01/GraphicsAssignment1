@@ -85,20 +85,12 @@ GLuint floorVAO, floorVBO ,floorTexture;
 
 GLfloat floorVertices[] =
 {
-	-1.0f, -0.7f,//Top left
-	-1.0f, -1.0f, //Bottom left
-	1.0f, -1.0f, // Bottom right
-	1.0f, -0.7f //Top right
+	//Vertices			//Texture coords
+	-1.0f, -0.7f, 0.0f,		0.0f, 1.0f,//Top left 
+	-1.0f, -1.0f, 0.0f,		0.0f, 0.0f,//Bottom left
+	1.0f, -1.0f, 0.0f,		1.0f, 1.0f,// Bottom right
+	1.0f, -0.7f, 0.0f,		1.0f, 0.0f //Top right
 };
-
-GLfloat floorTexCoords[] =
-{
-	0.0f, 1.0f,
-	0.0f, 0.0f,
-	1.0f, 1.0f,
-	1.0f, 0.0f
-};
-
 /////////////////////////////////////////
 // Collectable variables
 /////////////////////////////////////////
@@ -424,15 +416,26 @@ void setUpFloorVAOandVBO(void)
 	//Pass the index of the attribute we want to use
 	glVertexAttribPointer(
 		0,						//Position of the vertex
-		2,						//How many values we have per vertex
+		3,						//How many values we have per vertex
 		GL_FLOAT,				//Tell what data types we have
 		GL_FALSE,				//Only matter if we have the values as integers
-		2 * sizeof(float),		//Stride of our vertices, the amount of data between each vertex
+		5 * sizeof(float),		//Stride of our vertices, the amount of data between each vertex
 		(void*)0				//Offset, pointer to where our vertices begin in the array
+	);
+
+	// Texture coordinates attribute (assuming it is the next attribute)
+	glVertexAttribPointer(
+		1,                        // Index for texture coordinates
+		2,                        // 2 values (s, t)
+		GL_FLOAT,                 // Tell what data types we have
+		GL_FALSE,                 // Not normalized
+		5 * sizeof(float),        // Updated stride: 5
+		(void*)(3 * sizeof(float)) // Offset to the texture coords
 	);
 
 	//Now the vertex attribute has been configured we need to enable it
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1); // Enable texture coordinate
 
 	//Bind both the VBA and the VBO by binding them both to 0
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -451,6 +454,7 @@ void drawFloorVAOandVBO(void)
 	glDrawArrays(GL_QUADS, 0, 4);
 		
 	glBindVertexArray(0);
+
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 }
