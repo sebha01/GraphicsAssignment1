@@ -81,7 +81,7 @@ bool movingUp = true;
 ////////////////////////////////////////
 //Floor vairables
 ////////////////////////////////////////
-GLuint floorVAO, floorVBO;
+GLuint floorVAO, floorVBO, floorTexture;
 
 GLfloat floorVertices[] =
 {
@@ -89,6 +89,14 @@ GLfloat floorVertices[] =
 	-1.0f, -1.0f, //Bottom left
 	1.0f, -1.0f, // Bottom right
 	1.0f, -0.7f //Top right
+};
+
+GLfloat floorTexCoords[] =
+{
+	0.0f, 1.0f,
+	0.0f, 0.0f,
+	1.0f, 1.0f,
+	1.0f, 0.0f
 };
 
 /////////////////////////////////////////
@@ -248,6 +256,9 @@ void init(int argc, char* argv[])
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud6.png"),
 		0.6f, 0.9f, 0.3f, 0.5f
 	});
+	
+	floorTexture =
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Floor.png");
 
 	sunTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
@@ -429,10 +440,18 @@ void setUpFloorVAOandVBO(void)
 
 void drawFloorVAOandVBO(void)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, floorTexture);
+
 	glBindVertexArray(floorVAO);
 	glDrawArrays(GL_QUADS, 0, 4);
 		
 	glBindVertexArray(0);
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
