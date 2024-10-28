@@ -1,6 +1,6 @@
 #version 330
 
-//uniform mat4 T;
+uniform mat4 T;
 
 layout (location = 0) in vec4 aPosition;
 layout (location = 1) in vec3 aColour;
@@ -11,7 +11,9 @@ out vec2 texCoordinates;
 
 void main(void) 
 {
-	gl_Position = vec4(aPosition);
+	gl_Position = 
 	colour = aColour;
 	texCoordinates = aTexCoord;
+	vec4 pos = vec4(aPosition);
+	gl_Position = T* pos; // MUST set gl_Position
 }
