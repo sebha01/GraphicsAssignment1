@@ -17,6 +17,7 @@ using namespace std;
 // Main function prototypes
 void init(int argc, char* argv[]);
 void display(void);
+void updateObjectPosition(float& coords, bool& condition, float& speed, float desiredMax, float desiredMin);
 
 //Background function prototype
 void drawBackGround(void);
