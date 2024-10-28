@@ -12,8 +12,8 @@ Character::Character() {
 	characterComponent = new Square();
 
 	// Load texture images
-	bodyTexture = wicLoadTexture(wstring(L"Resources\\Textures\\Square.jpg"));
-	headTexture = wicLoadTexture(wstring(L"Resources\\Textures\\Head.jpg"));
+	bodyTexture = wicLoadTexture(wstring(L"Resources\\Textures\\Square.png"));
+	headTexture = wicLoadTexture(wstring(L"Resources\\Textures\\Head.png"));
 
 	// Load shaders that make up the snowmanShader program
 	characterShader = setupShaders(string("Shaders\\basic_vertex_shader.txt"), string("Shaders\\basic_fragment_shader.txt"));
@@ -35,8 +35,8 @@ void Character::renderCharacter(float x, float y, float scale, float orientation
 
 	// Create matrices based on input parameters
 	glm::mat4x4 bodyTransform = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, 0.0f))*
-	glm::rotate(glm::mat4(1.0f), glm::radians(orientation), glm::vec3(0.0f, 0.0f, 1.0f))*
-	glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, 1.0f));
+		glm::rotate(glm::mat4(1.0f), glm::radians(orientation), glm::vec3(0.0f, 0.0f, 1.0f))*
+		glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, 1.0f));
 
 	// Upload body transform to shader
 	glUniformMatrix4fv(locT, 1, GL_FALSE, (GLfloat*)&bodyTransform);

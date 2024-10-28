@@ -43,8 +43,8 @@ void keyDown(unsigned char key, int x, int y);
 // Globals
 ////////////////////////////////////////
 float characterX = 0.0f;
-float snowmanY = 0.0f;
-float snowmanOrientation = 0.0f;
+float characterY = 0.0f;
+float characterOrientation = 0.0f;
 //
 // Demo model
 //
@@ -529,6 +529,7 @@ void mouseButtonDown(int button_id, int state, int x, int y)
 
 void mouseMove(int x, int y) 
 {
+	//Do not want a mouse move
 	if (mDown) 
 	{
 		int dx = x - mouse_x;
@@ -541,12 +542,12 @@ void mouseMove(int x, int y)
 			theta1b += float(dy) * 0.01;
 			theta2 += float(dy) * 0.01;
 
-			snowmanOrientation += float(dy);
+			characterOrientation += float(dy);
 		}
 		else 
 		{
-			snowmanX += float(dx) * 0.0025f;
-			snowmanY -= float(dy) * 0.0025f;
+			characterX += float(dx) * 0.0025f;
+			characterY -= float(dy) * 0.0025f;
 		}
 
 		mouse_x = x;
@@ -559,11 +560,36 @@ void mouseMove(int x, int y)
 
 void keyDown(unsigned char key, int x, int y) 
 {
-	if (key == 'r') 
+	if (key == 'a') 
 	{
-		snowmanX = 0.0f;
-		snowmanY = 0.0f;
-		snowmanOrientation = 0.0f;
+		characterX -= 0.0001f;
+		characterY = 0.0f;
+		characterOrientation = 0.0f;
+
+		glutPostRedisplay();
+	}
+	else if (key == 'd') 
+	{
+		characterX += 0.0001f;
+		characterY = 0.0f;
+		characterOrientation = 0.0f;
+
+		glutPostRedisplay();
+	}
+	else if (key == 'r')
+	{
+		characterX = 0.0f;
+		characterY = 0.0f;
+		characterOrientation = 0.0f;
+
+		glutPostRedisplay();
+	}
+	else if (key == ' ')
+	{
+		characterX = 0.0f;
+		//Add code for jumping in
+		characterY = 0.0f;
+		characterOrientation = 0.0f;
 
 		glutPostRedisplay();
 	}

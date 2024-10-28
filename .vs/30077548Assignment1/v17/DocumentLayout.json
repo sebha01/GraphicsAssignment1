@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_fragment_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Shaders\\basic_fragment_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Character.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Character.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -27,6 +19,14 @@
       "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Square.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_fragment_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Shaders\\basic_fragment_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_vertex_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{CF9E7828-FB37-4219-9954-BBFA9789A8D3}|CS2S565\\CS2S565.vcxproj|solutionrelative:CS2S565\\Shaders\\basic_vertex_shader.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
@@ -38,63 +38,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Square.h",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Square.h",
               "RelativeDocumentMoniker": "CS2S565\\Square.h",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Square.h",
               "RelativeToolTip": "CS2S565\\Square.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-10-28T13:17:45.895Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Square.cpp",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Square.cpp",
               "RelativeDocumentMoniker": "CS2S565\\Square.cpp",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Square.cpp",
               "RelativeToolTip": "CS2S565\\Square.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFUAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEMAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-28T13:17:44.116Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Character.h",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Character.h",
               "RelativeDocumentMoniker": "CS2S565\\Character.h",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Character.h",
               "RelativeToolTip": "CS2S565\\Character.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-10-28T13:15:45.013Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Character.cpp",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Character.cpp",
               "RelativeDocumentMoniker": "CS2S565\\Character.cpp",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Character.cpp",
               "RelativeToolTip": "CS2S565\\Character.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAIwD0AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-28T13:15:18.895Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "basic_fragment_shader.txt",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\Shaders\\basic_fragment_shader.txt",
               "RelativeDocumentMoniker": "CS2S565\\Shaders\\basic_fragment_shader.txt",
@@ -102,18 +102,17 @@
               "RelativeToolTip": "CS2S565\\Shaders\\basic_fragment_shader.txt",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-10-24T19:21:35.646Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T19:21:35.646Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\main.cpp",
               "RelativeDocumentMoniker": "CS2S565\\main.cpp",
               "ToolTip": "C:\\Users\\sebas\\OneDrive - University of South Wales\\Uni\\Graphics\\OpenGL Projects\\GraphicsAssignment1\\CS2S565\\main.cpp",
               "RelativeToolTip": "CS2S565\\main.cpp",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACwAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAOIAAAAAAAAAAAAAAAEBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-23T14:52:50.409Z",
               "EditorCaption": ""

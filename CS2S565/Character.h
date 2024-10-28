@@ -35,4 +35,6 @@ public:
 	// Render snowman object.  x, y represent the position of the snowman's body, scale determines the scale of the snowman and orientation is the angle of the snowman (in degrees)
 	void renderCharacter(float x, float y, float scale, float orientation);
 
+	~Character();
+
 };
