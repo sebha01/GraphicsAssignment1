@@ -436,7 +436,7 @@ void setUpFloorVAOandVBO(void)
 
 	//Now the vertex attribute has been configured we need to enable it
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1); // Enable texture coordinate
+	glEnableVertexAttribArray(2); // Enable texture coordinate
 
 	//Bind both the VBA and the VBO by binding them both to 0
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -450,6 +450,9 @@ void drawFloorVAOandVBO(void)
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, floorTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   // Wrap horizontally
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);   // Wrap vertically
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Minification filter
 
 	glBindVertexArray(floorVAO);
 	glDrawArrays(GL_QUADS, 0, 4);
