@@ -81,7 +81,7 @@ bool movingUp = true;
 ////////////////////////////////////////
 //Floor vairables
 ////////////////////////////////////////
-GLuint floorVAO, floorVBO, floorTexture;
+GLuint floorVAO, floorVBO, floorTexCoordsVBO ,floorTexture;
 
 GLfloat floorVertices[] =
 {
