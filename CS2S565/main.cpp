@@ -665,32 +665,32 @@ void mouseButtonDown(int button_id, int state, int x, int y)
 
 void mouseMove(int x, int y) 
 {
-	////Do not want a mouse move
-	//if (mDown) 
-	//{
-	//	int dx = x - mouse_x;
-	//	int dy = y - mouse_y;
+	//Do not want a mouse move
+	if (mDown) 
+	{
+		int dx = x - mouse_x;
+		int dy = y - mouse_y;
 
-	//	// Ctrl click to rotate, click on its own to move...
-	//	if (glutGetModifiers() == GLUT_ACTIVE_CTRL) 
-	//	{
-	//		theta1 += float(dy) * 0.01;
-	//		theta1b += float(dy) * 0.01;
-	//		theta2 += float(dy) * 0.01;
+		// Ctrl click to rotate, click on its own to move...
+		if (glutGetModifiers() == GLUT_ACTIVE_CTRL) 
+		{
+			theta1 += float(dy) * 0.01;
+			theta1b += float(dy) * 0.01;
+			theta2 += float(dy) * 0.01;
 
-	//		characterOrientation += float(dy);
-	//	}
-	//	else 
-	//	{
-	//		characterX += float(dx) * 0.0025f;
-	//		characterY -= float(dy) * 0.0025f;
-	//	}
+			characterOrientation += float(dy);
+		}
+		else 
+		{
+			characterX += float(dx) * 0.0025f;
+			characterY -= float(dy) * 0.0025f;
+		}
 
-	//	mouse_x = x;
-	//	mouse_y = y;
+		mouse_x = x;
+		mouse_y = y;
 
-	//	glutPostRedisplay();
-	//}
+		glutPostRedisplay();
+	}
 }
 
 
