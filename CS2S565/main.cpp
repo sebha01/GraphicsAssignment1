@@ -50,7 +50,7 @@ void keyDown(unsigned char key, int x, int y);
 ////////////////////////////////////////
 Character* myCharacter = nullptr;
 float characterX = 0.0f;
-float characterY = 0.0f;
+float characterY = -0.6f;
 float characterOrientation = 0.0f;
 //
 // Demo model
@@ -315,7 +315,7 @@ void display(void)
 		//drawHierarchy(R);
 	//}
 
-	myCharacter->renderCharacter(characterX, characterY, 0.25f, characterOrientation);
+	myCharacter->renderCharacter(characterX, characterY, 0.5f, characterOrientation);
 
 	//call our function to render our shape hierarchy
 

@@ -55,7 +55,7 @@ void Character::renderCharacter(float x, float y, float scale, float orientation
 	// - Like the body, the head uses the same circle model so the origin will be in the middle of the head
 	// - Offsets are calculated in terms of the parent object's modelling coordinates.  Any scaling, rotation etc. of the parent will be applied later in the matrix sequence.
 	// - This makes relative modelling easier - we don't worry about what transforms have already been applied to the parent.
-	glm::mat4x4 body_to_head_transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.25f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.65f, 0.65f, 1.0f));
+	glm::mat4x4 body_to_head_transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.05f, 0.33f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.65f, 0.65f, 1.0f));
 
 	// Since we're working with a relative transform, we must multiply this with the parent objects's (that is, the body's) transform also
 	// REMEMBER: THE RELATIVE TRANSFORM GOES LAST IN THE MATRIX MULTIPLICATION SO IT HAPPENS FIRST IN THE SEQUENCE OF TRANSFORMATIONS
