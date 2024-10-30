@@ -311,13 +311,14 @@ void display(void)
 	drawSun();
 
 	glUseProgram(myShaderProgram);
-
 	glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(locT, 1, GL_FALSE, (GLfloat*)&T);
 	
+	//Draw platform, floor and collectable
 	drawFloorVAOandVBO();
 	drawPlatformsVAOandVBO();
 	drawCollectable();
+
 	//Render character shape hierarchy
 	myCharacter->renderCharacter(characterX, characterY, 0.5f, characterOrientation);
 	
@@ -334,6 +335,7 @@ void drawBackGround(void)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//For loop to draw all 3 background textures
 	for (int i = 0; i < backGroundTextures.size(); i++)
 	{
 		glBindTexture(GL_TEXTURE_2D, backGroundTextures[i]);
@@ -350,14 +352,17 @@ void drawBackGround(void)
 		glDisable(GL_TEXTURE_2D);
 	}
 
+	//Disable blend
 	glDisable(GL_BLEND);
 }
 
 void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2)
 {
+	//Enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//Bind and enable texture
 	glBindTexture(GL_TEXTURE_2D, cloudTexture);
 	glEnable(GL_TEXTURE_2D);
 
@@ -368,12 +373,14 @@ void drawOneCloud(GLuint cloudTexture, float x1, float x2, float y1, float y2)
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(x1, y2);
 	glEnd();
 
+	//Disable texturing
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 }
 
 void drawClouds() 
 {
+	//For loop to draw all 6 clouds that are stored in Clouds array
 	for (int i = 0; i < Clouds.size(); i++)
 	{
 		drawOneCloud(Clouds[i].texture, Clouds[i].x1, Clouds[i].x2, Clouds[i].y1, Clouds[i].y2);
@@ -382,9 +389,11 @@ void drawClouds()
 
 void drawSun(void)
 {
+	//Enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	
+	//Set and bind texture and enable texture 2d
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, sunTexture);
 
@@ -396,12 +405,16 @@ void drawSun(void)
 	glTexCoord2f(1.0f, 0.0f); glVertex2f(-0.65f, sunY);
 
 	glEnd();
+
+	//Disable texturing and blending
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 }
 
 void updateSunPosition(int value)
 {
+	/*Sun will move upwards or downwards depending on it it has reached a certain coordinate on the Y axis,
+	boolean value will then dictate if it is moving up or down*/
 	if (movingUp) 
 	{
 		sunY += sunSpeed; 
@@ -419,7 +432,9 @@ void updateSunPosition(int value)
 		} 
 	}
 
+	//Redraw the window to update the position of the sun
 	glutPostRedisplay();
+	//Recursively call function so it continues to update position every 16 milliseconds
 	glutTimerFunc(16, updateSunPosition, 0);
 }
 
@@ -476,24 +491,30 @@ void setUpFloorVAOandVBO(void)
 
 void drawFloorVAOandVBO(void)
 {
+	//Enable texturing and blending
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//Bind the texture, set uniform location of texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, floorTexture);
 	glUniform1i(locIT, 1);
 
+	//Set texture parameters so floor is not stretched
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   // Wrap horizontally
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);   // Wrap vertically
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Minification filter
 
+	//Bind and draw object
 	glBindVertexArray(floorVAO);
 	glDrawArrays(GL_QUADS, 0, 4);
 		
+	//Unbind object and uniform location
 	glBindVertexArray(0);
 	glUniform1i(locIT, 0);
 
+	//Disable texturing and blending
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 }
@@ -548,8 +569,9 @@ void setUpPlatformVAOandVBO(void)
 
 void drawPlatformsVAOandVBO(void)
 {
-	glEnable(GL_BLEND);
+	//Enable blending and texturing
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Set the active texture, bind the texture and set the uniform location
@@ -582,30 +604,45 @@ void drawPlatformsVAOandVBO(void)
 ////////////////////////////////////////////////////////////////////////////////////
 void setUpCollectable(void)
 {
+	//Generate VAO
 	glGenVertexArrays(1, &collectableVAO);
+	//Generate VBO
 	glGenBuffers(1, &collectableVBO);
+	//Generate EBO, this is a buffer that allows users to reuse vertices to create
+	// multiple primitives where a primitive is made up of one or more vertices
 	glGenBuffers(1, &collectableEBO);
+	//Generate VBO for colours
 	glGenBuffers(1, &collectableColoursVBO);
 
+	//Bind VAO
 	glBindVertexArray(collectableVAO);
 
+	//Bind VBO
 	glBindBuffer(GL_ARRAY_BUFFER, collectableVBO);
+	//Store vertices in VBO
 	glBufferData(GL_ARRAY_BUFFER, sizeof(collectableVertices), collectableVertices, GL_STATIC_DRAW);
 
+	//Bind EBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, collectableEBO);
+	//Store vertices in EBO
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(collectableIndices), collectableIndices, GL_STATIC_DRAW);
 
+	//Pass index of attribute we want to use
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//Enable vertex attribute
 	glEnableVertexAttribArray(0);
 
-	// Color VBO
+	// Bind color VBO
 	glBindBuffer(GL_ARRAY_BUFFER, collectableColoursVBO);
+	//Pass vertices into Colour VBO
 	glBufferData(GL_ARRAY_BUFFER, sizeof(collectableColours), collectableColours, GL_STATIC_DRAW);
 
 	// Set color attribute (location = 1 in the shader)
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//Enable vertex attribute
 	glEnableVertexAttribArray(1);
 
+	//Unbind buffer, vertex array and buffers
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -618,13 +655,20 @@ void drawCollectable(void)
 
 	// Create the translation matrix
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f, 0.22f, 0.0f));
+
 	//Get uniform location
 	collectableT = glGetUniformLocation(myShaderProgram, "T");
+
 	// Pass the matrix to the shader
 	glUniformMatrix4fv(collectableT, 1, GL_FALSE, glm::value_ptr(translationMatrix));
 
+	//Bind VAO
 	glBindVertexArray(collectableVAO);
+
+	//Draw collectable
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+
+	//Unbind vertex array
 	glBindVertexArray(0);
 }
 
