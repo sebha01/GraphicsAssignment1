@@ -169,6 +169,13 @@ GLuint bodyTexture, headTexture;
 int main(int argc, char* argv[]) 
 {
 	init(argc, argv);
+	/*
+	Got the idea of using this from this video -  https://www.cs.iusb.edu/~danav/teach/c481/c481_07a_anim2d.html 
+	Originally i did try and use glutIdleFunc but it just became annoyinfg because it was hard to control the animation speed
+	and it felt too fast so I switched to glutTimeFunc()
+	The initial function call takes 0 ms as it is calling it for the first time where as the timer is set to 50 ms in the recursive 
+	call at the bottom of updateSunPosition so that the sun moves at a controlled pace
+	*/
 	glutTimerFunc(0, updateSunPosition, 0);
 	glutMainLoop();
 
@@ -237,6 +244,7 @@ void init(int argc, char* argv[])
 
 	//Texture loading
 	//background
+	// Backgrounds obtained from https://szadiart.itch.io/background-desert-mountains
 	backGroundTextures.push_back(backGroundTexture1 =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background1.png"));
 
@@ -246,7 +254,8 @@ void init(int argc, char* argv[])
 	backGroundTextures.push_back(backGroundTexture3 =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\background3.png"));
 
-	//clouds
+	//Clouds
+	//clouds also obtained from https://szadiart.itch.io/background-desert-mountains
 	Clouds.push_back
 	({
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\cloud8.png"),
@@ -278,15 +287,18 @@ void init(int argc, char* argv[])
 		-0.6f, -0.3f, 0.7f, 0.9f
 	});
 	
+	//Both the platform and floor were obtained from https://szadiart.itch.io/pixel-fantasy-caves to which modified after
 	floorTexture =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Floor.png");
 
 	platformTexture =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Platform.png");
 
+	//Sun texture was one I created myself so there is nothing to reference for it
 	sunTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
 
+	//Character obtained from  https://penzilla.itch.io/hooded-protagonist
 	bodyTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Body.png");
 
@@ -413,6 +425,11 @@ void drawSun(void)
 
 void updateSunPosition(int value)
 {
+	/* 
+	Code for this was obtained from https://www.cs.iusb.edu/~danav/teach/c481/c481_07a_anim2d.html 
+	where afterwards it was modified to be what it is now
+	*/
+
 	/*Sun will move upwards or downwards depending on it it has reached a certain coordinate on the Y axis,
 	boolean value will then dictate if it is moving up or down*/
 	if (movingUp) 
@@ -435,7 +452,7 @@ void updateSunPosition(int value)
 	//Redraw the window to update the position of the sun
 	glutPostRedisplay();
 	//Recursively call function so it continues to update position every 16 milliseconds
-	glutTimerFunc(16, updateSunPosition, 0);
+	glutTimerFunc(50, updateSunPosition, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
