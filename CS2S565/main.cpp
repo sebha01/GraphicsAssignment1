@@ -460,6 +460,12 @@ void updateSunPosition(int value)
 ///////////////////////////////////////////////////////////////////////////////////
 void setUpFloorVAOandVBO(void)
 {
+	/*
+	The code for this was obtained by using a tutorial to understand VBOs and VAOs but was modified to be a quad object
+	The link to this is https://www.youtube.com/watch?v=XpBGwZNyUh0&list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-
+	Specifically video 2
+	*/
+
 	//Generate the VAO
 	glGenVertexArrays(1, &floorVAO);
 	//Generate the VBO
@@ -508,6 +514,14 @@ void setUpFloorVAOandVBO(void)
 
 void drawFloorVAOandVBO(void)
 {
+	/*
+	A tutorial was used for this by changing what https://www.youtube.com/watch?v=XpBGwZNyUh0&list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-
+	showed on their tutorial to be a quad, I later redone the tutorial and set that object as the collectable to better understand it
+	as I realised I had made it harder for myself by trying to modify the code there than trying to understand it first then modify it.
+	I then got stuck on trying to render the texture for this VBO so I got help from my lecturer Carl to help me and applied the way the
+	code for the texture to render onto to the VBO worked on the platforms aswell
+	*/
+
 	//Enable texturing and blending
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
@@ -538,6 +552,11 @@ void drawFloorVAOandVBO(void)
 
 void setUpPlatformVAOandVBO(void)
 {
+	/*
+	This was copied over from the floor code but originated from video 2 of this tutorial:
+	https://www.youtube.com/watch?v=XpBGwZNyUh0&list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-
+	*/
+
 	//Generate the VAO
 	glGenVertexArrays(1, &platformVAO);
 	//Generate the VBO
@@ -621,6 +640,11 @@ void drawPlatformsVAOandVBO(void)
 ////////////////////////////////////////////////////////////////////////////////////
 void setUpCollectable(void)
 {
+	/*
+	I used videos 2, 3, and parts of 5 for this collectable, here is the tutorial link below:
+	https://www.youtube.com/watch?v=XpBGwZNyUh0&list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-
+	*/
+
 	//Generate VAO
 	glGenVertexArrays(1, &collectableVAO);
 	//Generate VBO
@@ -667,8 +691,10 @@ void setUpCollectable(void)
 
 void drawCollectable(void)
 {
-	/*FOR SOME REASON WHEN I WAS TRYING TO ALTER THE COORDINATES IN THE VERTICES ARRAY FOR THE COLLECTABLE IT ENDED UP MESSING WITH THE SHAPE
-	AND MAKING IT ALL SQUASHED SO I DECIDED IT WAS EASIER TO USE A TRANSLLATION MATRIX TO SHIFT THE WHOLE SHAPE TO WHERE I WANTED */
+	/*
+	FOR SOME REASON WHEN I WAS TRYING TO ALTER THE COORDINATES IN THE VERTICES ARRAY FOR THE COLLECTABLE IT ENDED UP MESSING WITH THE SHAPE
+	AND MAKING IT ALL SQUASHED SO I DECIDED IT WAS EASIER TO USE A TRANSLLATION MATRIX TO SHIFT THE WHOLE SHAPE TO WHERE I WANTED
+	*/
 
 	// Create the translation matrix
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f, 0.22f, 0.0f));
