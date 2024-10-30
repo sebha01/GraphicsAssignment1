@@ -23,6 +23,10 @@
 	HERE IS THE LINK TO THIS BELOW:
 
 	https://github.com/sebha01/GraphicsAssignment1.git
+
+
+	YOU CAN MOVE THE CHARACTER BY USING THE MOUSE TO GRAB AND MOVE THE CHARACTER OR YOU CAN USE THE A AND D KEYS TO MOVE LEFT AND RIGHT, W AND S
+	TO MOVE UP AND DOWN AND THE SPACE BAR TO MOVE UP
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,8 +93,8 @@ GLuint locIT;
 ////////////////////////
 //background variables
 ////////////////////////
-vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
+vector<GLuint> backGroundTextures;
 
 /////////////////
 //Cloud variables
@@ -115,6 +119,7 @@ bool movingUp = true;
 //Floor vairables
 ////////////////////////////////////////
 GLuint floorVAO, floorVBO ,floorTexture;
+
 GLfloat floorVertices[] =
 {
 	//Vertices			//Texture coords
@@ -142,6 +147,9 @@ GLfloat platformVertices[] =
 /////////////////////////////////////////
 // Collectable variables
 /////////////////////////////////////////
+
+GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO, collectableT;
+
 GLfloat collectableVertices[] =
 {
 	0.09f, 0.1f * float(sqrt(3)) / 3, 0.0f, 	
@@ -169,8 +177,6 @@ GLfloat collectableColours[] =
 	0.2f, 0.02f, 0.8f,
 };
 
-GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO, collectableT;
-
 /////////////////////////////////
 // Character variables
 /////////////////////////////////
@@ -192,6 +198,7 @@ int main(int argc, char* argv[])
 	call at the bottom of updateSunPosition so that the sun moves at a controlled pace
 	*/
 	glutTimerFunc(0, updateSunPosition, 0);
+
 	glutMainLoop();
 
 	return 0;
@@ -708,7 +715,7 @@ void drawCollectable(void)
 {
 	/*
 	FOR SOME REASON WHEN I WAS TRYING TO ALTER THE COORDINATES IN THE VERTICES ARRAY FOR THE COLLECTABLE IT ENDED UP MESSING WITH THE SHAPE
-	AND MAKING IT ALL SQUASHED SO I DECIDED IT WAS EASIER TO USE A TRANSLLATION MATRIX TO SHIFT THE WHOLE SHAPE TO WHERE I WANTED
+	AND MAKING IT ALL SQUASHED SO I DECIDED IT WAS EASIER TO USE A TRANSLATION MATRIX TO SHIFT THE WHOLE SHAPE TO WHERE I WANTED
 	*/
 
 	// Create the translation matrix
@@ -787,37 +794,29 @@ void mouseMove(int x, int y)
 
 void keyDown(unsigned char key, int x, int y) 
 {
-	if (key == 'a') 
+	if (key == 'a')
 	{
 		characterX -= 0.05f;
-		characterY = -0.61;
-		characterOrientation = 0.0f;
-
-		glutPostRedisplay();
 	}
-	else if (key == 'd') 
+	else if (key == 'd')
 	{
 		characterX += 0.05f;
-		characterY = -0.61;
-		characterOrientation = 0.0f;
-
-		glutPostRedisplay();
+	}
+	else if (key == ' ' || key == 'w')
+	{
+		characterY += 0.1f;
+	}
+	else if (key == 's')
+	{
+		characterY -= 0.1f;
 	}
 	else if (key == 'r')
 	{
 		characterX = 0.0f;
 		characterY = -0.61;
-		characterOrientation = 0.0f;
-
-		glutPostRedisplay();
 	}
-	else if (key == ' ')
-	{
-		characterX += 0.05f;
-		characterY += 0.1f;
-		characterOrientation = 0.0f;
 
-		glutPostRedisplay();
-	}
+	characterOrientation = 0.0f;
+	glutPostRedisplay();
 }
 

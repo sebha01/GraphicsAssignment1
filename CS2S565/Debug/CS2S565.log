@@ -1,11 +1,9 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CS2S565.vcxproj, week04.vcxproj, week06.vcxproj, Week07.vcxproj, Week08.vcxproj, Week09.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(346,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(391,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(717,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(718,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(719,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(742,17): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(750,17): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(758,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(369,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(414,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(771,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(772,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(773,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(812,17): warning C4305: '=': truncation from 'double' to 'float'
   CS2S565.vcxproj -> C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\Debug\Assignment1.exe
