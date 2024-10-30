@@ -143,7 +143,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader_setup.cpp" />
@@ -151,7 +150,6 @@
     <ClCompile Include="texture_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="shader_setup.h" />
     <ClInclude Include="Character.h" />

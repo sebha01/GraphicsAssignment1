@@ -1,4 +1,3 @@
-  
 #pragma once
 
 #include <glew\glew.h>
@@ -12,8 +11,8 @@
 
 class Square;
 
-class Character {
-
+class Character 
+{
 	// Snowman made up of multiple circle objects (we store just one instance and render this multiple times)
 	Square *characterComponent;
 
@@ -27,13 +26,10 @@ class Character {
 	GLuint locT;
 	GLuint locCT;
 
-public:
+	public:
+		// Default constructor
+		Character(GLuint& shader, GLuint& texture1, GLuint& texture2, GLuint locIT, GLuint T);
 
-	// Default constructor
-	Character(GLuint& shader, GLuint& texture1, GLuint& texture2, GLuint locIT, GLuint T);
-
-	// Render snowman object.  x, y represent the position of the snowman's body, scale determines the scale of the snowman and orientation is the angle of the snowman (in degrees)
-	void renderCharacter(float x, float y, float scale, float orientation);
-
-	//~Character();
+		// Render snowman object.  x, y represent the position of the snowman's body, scale determines the scale of the snowman and orientation is the angle of the snowman (in degrees)
+		void renderCharacter(float x, float y, float scale, float orientation);
 };

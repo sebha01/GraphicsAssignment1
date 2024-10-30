@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <glew\glew.h>
@@ -11,17 +10,17 @@
 
 
 
-class Square {
-
+class Square 
+{
 	// Variables to represent the VBO and VAO of the circle object
 	GLuint squareVAO, squareVertexPositionVBO, squareTexCoordVBO;
 
-public:
+	public:
 
-	// Default constructor - setup circle with unit radius
-	Square();
+		// Default constructor - setup circle with unit radius
+		Square();
 
-	// Render circle - all relevant transformations are assumed to be setup before calling this function
-	void render(void);
+		// Render circle - all relevant transformations are assumed to be setup before calling this function
+		void render(void);
 
 };

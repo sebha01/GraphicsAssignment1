@@ -15,8 +15,6 @@
 
 using namespace std;
 
-
-
 /////////////////////////////////////
 // Main function prototypes
 ////////////////////////////////////
@@ -38,14 +36,10 @@ void drawPlatformsVAOandVBO(void);
 //Collectable item
 void setUpCollectable(void);
 void drawCollectable(void);
-void drawHierarchy(glm::mat4x4& R);
-void drawTexturedQuad(void);
 // Mouse input (rotation) example
 void mouseButtonDown(int button_id, int state, int x, int y);
 void mouseMove(int x, int y);
 void keyDown(unsigned char key, int x, int y);
-
-
 
 ////////////////////////////////////////
 // Globals
@@ -62,16 +56,8 @@ float theta1 = 0.1f;
 float theta2 = 0.0f;
 float theta1b = glm::radians(45.0f);
 
-const float quadLength = 0.4f;
-
-GLuint rustTexture;
-
-
-// Matrix stack
-stack<glm::mat4x4> matrixStack;
 // Variable we'll use to animate (rotate) our star object
 float theta = 0.0f;
-
 
 ///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
@@ -79,20 +65,17 @@ int mouse_x, mouse_y;
 bool mDown = false;
 glm::mat4 model_view = glm::mat4(1);
 
-
 //////////////////////////
 // Shader program object
 GLuint myShaderProgram;
 GLuint locT; // Location of "T" uniform variable
 GLuint locIT;
 
-
 ////////////////////////
 //background variables
 ////////////////////////
 vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
-
 
 /////////////////
 //Cloud variables
@@ -102,8 +85,8 @@ struct Cloud
 	GLuint texture;
 	float x1, x2, y1, y2;
 };
-vector<Cloud> Clouds;
 
+vector<Cloud> Clouds;
 
 /////////////////////////
 //Sun variables 
@@ -112,7 +95,6 @@ GLuint sunTexture;
 float sunY = 1.0f; 
 float sunSpeed = 0.001f; 
 bool movingUp = true; 
-
 
 ////////////////////////////////////////
 //Floor vairables
@@ -152,12 +134,14 @@ GLfloat collectableVertices[] =
 	-0.09f / 2, -0.1f * float(sqrt(3)) / 6, 0.0f,	
 	0.0f, 0.1f * float(sqrt(3)) / 3, 0.0f	
 };
+
 GLuint collectableIndices[] =
 {
 	0, 3, 5,
 	3, 2, 4,
 	5, 4, 1
 };
+
 GLfloat collectableColours[] =
 {
 	1.0f, 1.0f, 1.0f,
@@ -167,6 +151,7 @@ GLfloat collectableColours[] =
 	0.0f, 1.0f, 0.0f,
 	0.2f, 0.02f, 0.8f,
 };
+
 GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO, collectableT;
 
 /////////////////////////////////
@@ -306,18 +291,6 @@ void init(int argc, char* argv[])
 	headTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Head.png");
 
-	// Set Projection Matrix
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(-1.0f, 1.0f, -1.0f, 1.0f);
-
-	glMatrixMode(GL_MODELVIEW);
-	glm::vec3 origin(0, 0, -0.5);
-	glm::vec3 target(0, 0, 0);
-	glm::vec3 up(0, 1, 0);
-	model_view = glm::lookAt(origin, target, up);
-
-
 	// Create new Snowman instance
 	myCharacter = new Character(myShaderProgram, bodyTexture, headTexture, locIT, locT);
 }
@@ -343,26 +316,9 @@ void display(void)
 	drawFloorVAOandVBO();
 	drawPlatformsVAOandVBO();
 	drawCollectable();
-
-	//call our function to render our shape
-
-	/*glm::mat4 R = glm::rotate(glm::mat4(1), theta, glm::vec3(0.0f, 0.0f, 1.0f));
-	glm::mat4  T = glm::translate(glm::mat4(1), glm::vec3(-0.8f, -0.25f, 0.0f));
-	R = T * R;
-	glLoadMatrixf(glm::value_ptr(R));*/
-
-	//glUseProgram(0);
-	//drawHierarchy(R);
-	//T = glm::translate(glm::mat4(1), glm::vec3(0.3f, 0.0f, 0.0f));
-	//for (int i = 0; i < 5; i++)
-	//{
-		//R = T * R;
-		//drawHierarchy(R);
-	//}
-	
+	//Render character shape hierarchy
 	myCharacter->renderCharacter(characterX, characterY, 0.5f, characterOrientation);
-	//call our function to render our shape hierarchy
-
+	
 	//instructs the rendering that you are done with the current frame and buffers should be swapped to work on the next one.
 	glutSwapBuffers();
 }
@@ -661,108 +617,6 @@ void drawCollectable(void)
 	glBindVertexArray(collectableVAO);
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-}
-
-// Draw example hierarchical object - pass in the current transform matrix so we can 'append' new transforms to this.
-void drawHierarchy(glm::mat4x4& R) 
-{
-	matrixStack.push(R);
-
-	// Draw base base of arm
-
-
-	R = R * glm::rotate(glm::mat4(1.0f), theta0, glm::vec3(0.0f, 0.0f, 1.0f));
-	glLoadMatrixf((GLfloat*)&R);
-
-	drawTexturedQuad();
-
-
-	matrixStack.push(R);
-
-	// Draw first segment
-
-
-	R = R * glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, quadLength, 0.0f)) * glm::rotate(glm::mat4(1.0f), theta1, glm::vec3(0.0f, 0.0f, 1.0f));
-
-
-	glLoadMatrixf((GLfloat*)&R);
-
-	drawTexturedQuad();
-
-
-	matrixStack.push(R);
-
-	// Draw first branch
-
-	R = R * glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, quadLength, 0.0f)) * glm::rotate(glm::mat4(1.0f), theta2, glm::vec3(0.0f, 0.0f, 1.0f));
-
-	glLoadMatrixf((GLfloat*)&R);
-
-	drawTexturedQuad();
-
-	R = matrixStack.top();
-	matrixStack.pop();
-
-
-	matrixStack.push(R);
-
-	// Draw second branch
-
-
-	R = R * glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, quadLength, 0.0f)) * glm::rotate(glm::mat4(1.0f), theta1b, glm::vec3(0.0f, 0.0f, 1.0f));
-	glLoadMatrixf((GLfloat*)&R);
-
-	drawTexturedQuad();
-
-	R = matrixStack.top();
-	matrixStack.pop();
-
-
-	R = matrixStack.top();
-	matrixStack.pop();
-
-
-	R = matrixStack.top();
-	matrixStack.pop();
-}
-
-void drawTexturedQuad(void) 
-{
-	//glBindTexture(GL_TEXTURE_2D, myTexture);
-	glEnable(GL_TEXTURE_2D);
-	//glBegin(GL_TRIANGLE_STRIP);
-	//glTexCoord2f(0.0f, 1.0f);
-	//glVertex2f(-0.4f, -0.7f);
-	//
-	//glTexCoord2f(0.0f, 0.0f);
-	//glVertex2f(-0.4f, 0.7f);
-
-	//glTexCoord2f(1.0f, 1.0f);
-	//glVertex2f(0.4f, -0.7f);
-
-	//glTexCoord2f(1.0f, 0.0f);
-	//glVertex2f(0.4f, 0.7f);
-	//glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, rustTexture);
-
-	glBegin(GL_TRIANGLE_STRIP);
-
-	glColor3ub(255, 255, 255);
-
-	glTexCoord2f(0.4f, 1.0f);
-	glVertex2f(-0.05f, 0.0f);
-
-	glTexCoord2f(0.4f, 0.0f);
-	glVertex2f(-0.05f, quadLength);
-
-	glTexCoord2f(0.6f, 1.0f);
-	glVertex2f(0.05f, 0.0f);
-
-	glTexCoord2f(0.6f, 0.0f);
-	glVertex2f(0.05f, quadLength);
-
-	glEnd();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
