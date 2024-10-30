@@ -59,8 +59,8 @@ Square::Square()
 }
 
 
-void Square::render(void) {
-
+void Square::render(void) 
+{
 	glBindVertexArray(squareVAO);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
