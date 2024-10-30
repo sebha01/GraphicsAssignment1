@@ -30,9 +30,11 @@ void drawClouds(void);
 //Functions for the sun
 void drawSun(void);
 void updateSunPosition(int value);
-//Functions for the floor sprite
+//Functions for the floor and platforms
 void setUpFloorVAOandVBO(void);
 void drawFloorVAOandVBO(void);
+void setUpPlatformVAOandVBO(void);
+void drawPlatformsVAOandVBO(void);
 //Collectable item
 void setUpCollectable(void);
 void drawCollectable(void);
@@ -50,7 +52,7 @@ void keyDown(unsigned char key, int x, int y);
 ////////////////////////////////////////
 Character* myCharacter = nullptr;
 float characterX = 0.0f;
-float characterY = -0.6f;
+float characterY = -0.61f;
 float characterOrientation = 0.0f;
 //
 // Demo model
@@ -121,9 +123,23 @@ GLfloat floorVertices[] =
 	//Vertices			//Texture coords
 	-1.0f, -0.7f, 0.0f,		0.0f, 0.0f,//Top left 
 	-1.0f, -1.0f, 0.0f,		0.0f, 1.0f,//Bottom left
-	1.0f, -1.0f, 0.0f,		1.0f, 1.0f,// Bottom right
-	1.0f, -0.7f, 0.0f,		1.0f, 0.0f //Top right
+	1.0f, -1.0f, 0.0f,		3.0f, 1.0f,// Bottom right
+	1.0f, -0.7f, 0.0f,		3.0f, 0.0f //Top right
 };
+
+/////////////////////////////////////////
+// Platform varirables
+////////////////////////////////////////
+GLuint platformVAO, platformVBO, platformTexture;
+GLfloat platformVertices[] =
+{
+	//Vertices			//Texture coords
+	-0.2f, 0.0f, 0.0f,		0.0f, 0.0f,//Top left 
+	-0.2f, -0.2f, 0.0f,		0.0f, 1.0f,//Bottom left
+	0.2f, -0.2f, 0.0f,		1.0f, 1.0f,// Bottom right
+	0.2f, 0.0f, 0.0f,		1.0f, 0.0f //Top right
+};
+
 /////////////////////////////////////////
 // Collectable variables
 /////////////////////////////////////////
@@ -221,6 +237,7 @@ void init(int argc, char* argv[])
 
 	//Setup objects using Vertex Buffer Objects (VBOs)
 	setUpFloorVAOandVBO();
+	setUpPlatformVAOandVBO();
 	setUpCollectable();
 
 	// 3. Initialise OpenGL settings and objects we'll use in our scene
@@ -277,6 +294,9 @@ void init(int argc, char* argv[])
 	floorTexture =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Floor.png");
 
+	platformTexture =
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Platform.png");
+
 	sunTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
 
@@ -321,6 +341,7 @@ void display(void)
 	glUniformMatrix4fv(locT, 1, GL_FALSE, (GLfloat*)&T);
 	
 	drawFloorVAOandVBO();
+	drawPlatformsVAOandVBO();
 	drawCollectable();
 
 	//call our function to render our shape
@@ -445,7 +466,7 @@ void updateSunPosition(int value)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-// FLOOR FUNCTIONS
+// FLOOR AND PLATFORM FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////
 void setUpFloorVAOandVBO(void)
 {
@@ -512,6 +533,78 @@ void drawFloorVAOandVBO(void)
 	glBindVertexArray(floorVAO);
 	glDrawArrays(GL_QUADS, 0, 4);
 		
+	glBindVertexArray(0);
+	glUniform1i(locIT, 0);
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+}
+
+void setUpPlatformVAOandVBO(void)
+{
+	//Generate the VAO
+	glGenVertexArrays(1, &platformVAO);
+	//Generate the VBO
+	glGenBuffers(1, &platformVBO);
+
+	//Bind the vertex array
+	glBindVertexArray(platformVAO);
+	//Bind the buffer object for the VBO  
+	glBindBuffer(GL_ARRAY_BUFFER, platformVBO);
+	//Store vertices in VBO      
+	glBufferData(
+		GL_ARRAY_BUFFER,	//Specify type of buffer
+		sizeof(platformVertices),		//Total size of data
+		platformVertices,				//Give the actual vertices
+		GL_STATIC_DRAW				//Specify the use of the data
+	);
+
+	//Pass the index of the attribute we want to use
+	glVertexAttribPointer(
+		0,						//Position of the vertex
+		3,						//How many values we have per vertex
+		GL_FLOAT,				//Tell what data types we have
+		GL_FALSE,				//Only matter if we have the values as integers
+		5 * sizeof(float),		//Stride of our vertices, the amount of data between each vertex
+		(void*)0				//Offset, pointer to where our vertices begin in the array
+	);
+
+	// Texture coordinates attribute (assuming it is the next attribute)
+	glVertexAttribPointer(
+		2,                        // Index for texture coordinates
+		2,                        // 2 values (s, t)
+		GL_FLOAT,                 // Tell what data types we have
+		GL_FALSE,                 // Not normalized
+		5 * sizeof(float),        // Updated stride: 5
+		(void*)(3 * sizeof(float)) // Offset to the texture coords
+	);
+
+	//Now the vertex attribute has been configured we need to enable it
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(2); // Enable texture coordinate
+
+	//Bind both the VBA and the VBO by binding them both to 0
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+void drawPlatformsVAOandVBO(void)
+{
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, platformTexture);
+	glUniform1i(locIT, 1);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   // Wrap horizontally
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);   // Wrap vertically
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Minification filter
+
+	glBindVertexArray(platformVAO);
+	glDrawArrays(GL_QUADS, 0, 4);
+
 	glBindVertexArray(0);
 	glUniform1i(locIT, 0);
 
@@ -721,16 +814,16 @@ void keyDown(unsigned char key, int x, int y)
 {
 	if (key == 'a') 
 	{
-		characterX -= 0.0001f;
-		characterY = 0.0f;
+		characterX -= 0.05f;
+		characterY = -0.61;
 		characterOrientation = 0.0f;
 
 		glutPostRedisplay();
 	}
 	else if (key == 'd') 
 	{
-		characterX += 0.0001f;
-		characterY = 0.0f;
+		characterX += 0.05f;
+		characterY = -0.61;
 		characterOrientation = 0.0f;
 
 		glutPostRedisplay();
@@ -738,16 +831,15 @@ void keyDown(unsigned char key, int x, int y)
 	else if (key == 'r')
 	{
 		characterX = 0.0f;
-		characterY = 0.0f;
+		characterY = -0.61;
 		characterOrientation = 0.0f;
 
 		glutPostRedisplay();
 	}
 	else if (key == ' ')
 	{
-		characterX = 0.0f;
-		//Add code for jumping in
-		characterY = 0.0f;
+		characterX += 0.05f;
+		characterY += 0.1f;
 		characterOrientation = 0.0f;
 
 		glutPostRedisplay();
