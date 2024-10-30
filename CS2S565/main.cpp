@@ -113,6 +113,8 @@ GLfloat floorVertices[] =
 // Platform varirables
 ////////////////////////////////////////
 GLuint platformVAO, platformVBO, platformTexture;
+glm::mat4 platformTransformation;
+
 GLfloat platformVertices[] =
 {
 	//Vertices			//Texture coords
@@ -559,6 +561,12 @@ void drawPlatformsVAOandVBO(void)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Minification filter
 
 	glBindVertexArray(platformVAO);
+	glDrawArrays(GL_QUADS, 0, 4);
+
+	platformTransformation = glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.3f, 0.0f));
+
+	glUniformMatrix4fv(locT, 1, GL_FALSE, glm::value_ptr(platformTransformation));
+	
 	glDrawArrays(GL_QUADS, 0, 4);
 
 	glBindVertexArray(0);
