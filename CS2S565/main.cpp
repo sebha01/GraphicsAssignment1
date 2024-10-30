@@ -63,34 +63,46 @@ float theta1b = glm::radians(45.0f);
 const float quadLength = 0.4f;
 
 GLuint rustTexture;
+
+
 // Matrix stack
 stack<glm::mat4x4> matrixStack;
 // Variable we'll use to animate (rotate) our star object
 float theta = 0.0f;
+
+
 ///////////////////////////////
 // Variables needed to track where the mouse pointer is so we can determine which direction it's moving in
 int mouse_x, mouse_y;
 bool mDown = false;
 glm::mat4 model_view = glm::mat4(1);
+
+
 //////////////////////////
 // Shader program object
 GLuint myShaderProgram;
 GLuint locT; // Location of "T" uniform variable
 GLuint locIT;
+
+
 ////////////////////////
 //background variables
 ////////////////////////
 vector<GLuint> backGroundTextures;
 GLuint backGroundTexture1, backGroundTexture2, backGroundTexture3;
+
+
 /////////////////
 //Cloud variables
 //////////////////
-struct Cloud 
+struct Cloud
 {
 	GLuint texture;
 	float x1, x2, y1, y2;
 };
 vector<Cloud> Clouds;
+
+
 /////////////////////////
 //Sun variables 
 ///////////////////////
@@ -98,6 +110,8 @@ GLuint sunTexture;
 float sunY = 1.0f; 
 float sunSpeed = 0.001f; 
 bool movingUp = true; 
+
+
 ////////////////////////////////////////
 //Floor vairables
 ////////////////////////////////////////
@@ -139,6 +153,10 @@ GLfloat collectableColours[] =
 };
 GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO;
 
+/////////////////////////////////
+// Character variables
+/////////////////////////////////
+GLuint bodyTexture, headTexture;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,9 +277,14 @@ void init(int argc, char* argv[])
 	floorTexture =
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Floor.png");
 
-
 	sunTexture = 
 		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Sun.png");
+
+	bodyTexture = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Body.png");
+
+	headTexture = 
+		wicLoadTexture(L"..\\..\\Common\\Resources\\Textures\\Head.png");
 
 	// Set Projection Matrix
 	glMatrixMode(GL_PROJECTION);
@@ -276,7 +299,7 @@ void init(int argc, char* argv[])
 
 
 	// Create new Snowman instance
-	myCharacter = new Character();
+	myCharacter = new Character(myShaderProgram, bodyTexture, headTexture, locIT, locT);
 }
 
 void display(void) 
@@ -293,6 +316,7 @@ void display(void)
 	drawSun();
 
 	glUseProgram(myShaderProgram);
+
 	glm::mat4 T = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(locT, 1, GL_FALSE, (GLfloat*)&T);
 	
@@ -314,9 +338,8 @@ void display(void)
 		//R = T * R;
 		//drawHierarchy(R);
 	//}
-
+	
 	myCharacter->renderCharacter(characterX, characterY, 0.5f, characterOrientation);
-
 	//call our function to render our shape hierarchy
 
 	//instructs the rendering that you are done with the current frame and buffers should be swapped to work on the next one.

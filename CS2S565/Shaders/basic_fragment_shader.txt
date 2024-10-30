@@ -5,6 +5,7 @@ in vec2 texCoordinates;
 
 out vec4 fragmentColour;
 uniform sampler2D floorTexture;
+uniform sampler2D characterTexture;
 uniform int isTexture = 0;
 
 void main(void) 
@@ -13,8 +14,12 @@ void main(void)
 	{
 		fragmentColour = texture(floorTexture, texCoordinates);
 	}
-	else
+	else if (isTexture == 0)
 	{
 		fragmentColour = vec4(colour, 1.0);
+	}
+	else if (isTexture == 2)
+	{
+		fragmentColour = texture(characterTexture, texCoordinates);
 	}
 }
