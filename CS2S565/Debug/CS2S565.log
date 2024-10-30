@@ -2,10 +2,10 @@
   main.cpp
 C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(337,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(377,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(665,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(666,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(667,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(690,17): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(698,17): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(706,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(666,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(667,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(668,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(691,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(699,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\CS2S565\main.cpp(707,17): warning C4305: '=': truncation from 'double' to 'float'
   CS2S565.vcxproj -> C:\Users\sebas\OneDrive - University of South Wales\Uni\Graphics\OpenGL Projects\GraphicsAssignment1\Debug\Assignment1.exe
