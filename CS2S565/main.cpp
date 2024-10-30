@@ -134,10 +134,10 @@ GLuint platformVAO, platformVBO, platformTexture;
 GLfloat platformVertices[] =
 {
 	//Vertices			//Texture coords
-	-0.2f, 0.0f, 0.0f,		0.0f, 0.0f,//Top left 
-	-0.2f, -0.2f, 0.0f,		0.0f, 1.0f,//Bottom left
-	0.2f, -0.2f, 0.0f,		1.0f, 1.0f,// Bottom right
-	0.2f, 0.0f, 0.0f,		1.0f, 0.0f //Top right
+	0.0f, 0.1f, 0.0f,		0.0f, 0.0f,//Top left 
+	0.0f, -0.1f, 0.0f,		0.0f, 1.0f,//Bottom left
+	0.4f, -0.1f, 0.0f,		1.0f, 1.0f,// Bottom right
+	0.4f, 0.1f, 0.0f,		1.0f, 0.0f //Top right
 };
 
 /////////////////////////////////////////
@@ -167,7 +167,7 @@ GLfloat collectableColours[] =
 	0.0f, 1.0f, 0.0f,
 	0.2f, 0.02f, 0.8f,
 };
-GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO;
+GLuint collectableVAO, collectableVBO, collectableEBO, collectableColoursVBO, collectableT;
 
 /////////////////////////////////
 // Character variables
@@ -648,6 +648,16 @@ void setUpCollectable(void)
 
 void drawCollectable(void)
 {
+	/*FOR SOME REASON WHEN I WAS TRYING TO ALTER THE COORDINATES IN THE VERTICES ARRAY FOR THE COLLECTABLE IT ENDED UP MESSING WITH THE SHAPE
+	AND MAKING IT ALL SQUASHED SO I DECIDED IT WAS EASIER TO USE A TRANSLLATION MATRIX TO SHIFT THE WHOLE SHAPE TO WHERE I WANTED */
+
+	// Create the translation matrix
+	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f, 0.22f, 0.0f));
+	//Get uniform location
+	collectableT = glGetUniformLocation(myShaderProgram, "T");
+	// Pass the matrix to the shader
+	glUniformMatrix4fv(collectableT, 1, GL_FALSE, glm::value_ptr(translationMatrix));
+
 	glBindVertexArray(collectableVAO);
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
