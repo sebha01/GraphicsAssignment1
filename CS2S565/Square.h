@@ -16,11 +16,9 @@ class Square
 	GLuint squareVAO, squareVertexPositionVBO, squareTexCoordVBO;
 
 	public:
-
-		// Default constructor - setup circle with unit radius
+		// Default constructor
 		Square();
 
-		// Render circle - all relevant transformations are assumed to be setup before calling this function
+		// Render square
 		void render(void);
-
 };

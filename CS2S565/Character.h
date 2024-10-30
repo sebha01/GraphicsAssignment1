@@ -13,13 +13,13 @@ class Square;
 
 class Character 
 {
-	// Snowman made up of multiple circle objects (we store just one instance and render this multiple times)
+	// Charcater made up of 2 squares, head and body
 	Square *characterComponent;
 
-	// Textures for snowman body and head
+	// Textures for character body and head
 	GLuint bodyTexture, headTexture;
 
-	// Shader program for drawing the snowman
+	// Shader program for drawing the character
 	GLuint characterShader;
 
 	// Uniform character texture variable location in character shader

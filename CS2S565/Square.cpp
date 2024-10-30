@@ -11,7 +11,7 @@ struct GUVector2
 Square::Square() 
 {
 	// Setup vertex xy coordinates and texture coordinates (modelling coordinates)
-	GUVector2* vertex_xy_coords = (GUVector2*)malloc(4 * sizeof(GUVector2)); // Only need 4 vertices for a square
+	GUVector2* vertex_xy_coords = (GUVector2*)malloc(4 * sizeof(GUVector2)); //4 vertices for the square
 	GUVector2* vertex_texture_coords = (GUVector2*)malloc(4 * sizeof(GUVector2));
 
 	if (vertex_xy_coords && vertex_texture_coords) 
@@ -22,7 +22,7 @@ Square::Square()
 		vertex_xy_coords[2].x = 0.3f; vertex_xy_coords[2].y = 0.2f; // Top right
 		vertex_xy_coords[3].x = 0.0f; vertex_xy_coords[3].y = 0.2f; // Top left
 
-		// Define corresponding texture coordinates (assuming the texture spans the whole square)
+		// Texture coords
 		vertex_texture_coords[0].x = 0.0f; vertex_texture_coords[0].y = 1.0f; // Bottom left
 		vertex_texture_coords[1].x = 1.0f; vertex_texture_coords[1].y = 1.0f; // Bottom right
 		vertex_texture_coords[2].x = 1.0f; vertex_texture_coords[2].y = 0.0f; // Top right

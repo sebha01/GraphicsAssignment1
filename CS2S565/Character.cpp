@@ -11,7 +11,7 @@ Character::Character(GLuint& shader, GLuint& texture1, GLuint& texture2, GLuint 
 	this->bodyTexture = texture1;
 	this->headTexture = texture2;
 
-	// Load shaders that make up the snowmanShader program
+	// Load shaders that make up the character program
 	this->characterShader = shader;
 
 	// Setup uniform locations
@@ -19,7 +19,8 @@ Character::Character(GLuint& shader, GLuint& texture1, GLuint& texture2, GLuint 
 	this->locCT = locIT;
 }
 
-// Render snowman object.  x, y represent the position of the snowman's body, scale determines the scale of the snowman and orientation is the angle of the snowman (in degrees)
+// Render character object.  x, y represent the position of the snowman's body, scale determines 
+// the scale of the snowman and orientation is the angle of the character (in degrees)
 void Character::renderCharacter(float x, float y, float scale, float orientation) 
 {
 	//// "Plug in" the snowman shader into the GPU
